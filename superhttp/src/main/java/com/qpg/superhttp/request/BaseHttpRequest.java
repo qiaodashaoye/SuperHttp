@@ -174,7 +174,7 @@ public abstract class BaseHttpRequest<R extends BaseHttpRequest> extends BaseReq
      * @param retryDelayMillis
      * @return
      */
-    public R retryDelayMillis(int retryDelayMillis) {
+    public R setRetryDelayMillis(int retryDelayMillis) {
         this.retryDelayMillis = retryDelayMillis;
         return (R) this;
     }
@@ -185,7 +185,7 @@ public abstract class BaseHttpRequest<R extends BaseHttpRequest> extends BaseReq
      * @param retryCount
      * @return
      */
-    public R retryCount(int retryCount) {
+    public R setRetryCount(int retryCount) {
         this.retryCount = retryCount;
         return (R) this;
     }
@@ -207,7 +207,7 @@ public abstract class BaseHttpRequest<R extends BaseHttpRequest> extends BaseReq
      * @param cacheMode
      * @return
      */
-    public R cacheMode(CacheMode cacheMode) {
+    public R setCacheMode(CacheMode cacheMode) {
         this.cacheMode = cacheMode;
         return (R) this;
     }
@@ -218,7 +218,7 @@ public abstract class BaseHttpRequest<R extends BaseHttpRequest> extends BaseReq
      * @param cacheKey
      * @return
      */
-    public R cacheKey(String cacheKey) {
+    public R setCacheKey(String cacheKey) {
         this.cacheKey = cacheKey;
         return (R) this;
     }
@@ -229,7 +229,7 @@ public abstract class BaseHttpRequest<R extends BaseHttpRequest> extends BaseReq
      * @param cacheTime
      * @return
      */
-    public R cacheTime(long cacheTime) {
+    public R setCacheTime(long cacheTime) {
         this.cacheTime = cacheTime;
         return (R) this;
     }

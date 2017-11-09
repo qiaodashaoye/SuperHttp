@@ -1,14 +1,11 @@
 package com.qpg.superhttp.request;
 
-
 import com.qpg.superhttp.SuperHttp;
 import com.qpg.superhttp.callback.BaseCallback;
 import com.qpg.superhttp.core.ApiManager;
 import com.qpg.superhttp.mode.CacheResult;
 import com.qpg.superhttp.subscriber.ApiCallbackSubscriber;
-
 import java.lang.reflect.Type;
-
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
 

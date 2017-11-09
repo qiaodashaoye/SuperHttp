@@ -1,18 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.qpg.superhttpdemo.MainActivity">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btn_get1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:text="Get方式一"/>
+        <Button
+            android:id="@+id/btn_get2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:text="Get方式二"/>
+        <Button
+            android:id="@+id/btn_post1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:text="POST表单"/>
+        <Button
+            android:id="@+id/btn_post2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:text="POSTMap"/>
 
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/btn_up"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:text="上传"/>
+
+        <Button
+            android:id="@+id/btn_download"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:text="下载"/>
+
+    </LinearLayout>
+
+</ScrollView>

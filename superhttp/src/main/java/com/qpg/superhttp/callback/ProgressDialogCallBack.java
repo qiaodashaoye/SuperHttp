@@ -20,12 +20,17 @@ public abstract class ProgressDialogCallBack<T> extends BaseCallback<T> implemen
     private IProgressDialog progressDialog;
     private Dialog mDialog;
     private boolean isShowProgress = true;
+    private String onFailMsg;
 
     public ProgressDialogCallBack(IProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
         init(false);
     }
-
+    public ProgressDialogCallBack(IProgressDialog progressDialog,String onFailMsg) {
+        this.progressDialog = progressDialog;
+        this.onFailMsg = onFailMsg;
+        init(false);
+    }
     /**
      * 自定义加载进度框,可以设置是否显示弹出框，是否可以取消
      *
@@ -94,8 +99,8 @@ public abstract class ProgressDialogCallBack<T> extends BaseCallback<T> implemen
     @Override
     public void onStart() {
         if(!CommonUtil.isConnected(SuperHttp.getContext())){
-            Toast.makeText(SuperHttp.getContext(),"网络连接错误",Toast.LENGTH_LONG).show();
-            onCompleted();
+            Toast.makeText(SuperHttp.getContext(),"网络连接错误",Toast.LENGTH_SHORT).show();
+            onFail(0,"");
         }else {
             showProgress();
         }
@@ -104,6 +109,10 @@ public abstract class ProgressDialogCallBack<T> extends BaseCallback<T> implemen
 
     @Override
     public void onFail(int errCode, String errMsg) {
+        if(!CommonUtil.isConnected(SuperHttp.getContext())){
+            return;
+        }
+        Toast.makeText(SuperHttp.getContext(),onFailMsg,Toast.LENGTH_SHORT).show();
         dismissProgress();
     }
 
