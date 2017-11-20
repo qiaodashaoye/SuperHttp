@@ -32,6 +32,12 @@
             android:layout_height="60dp"
             android:layout_margin="8dp"
             android:text="POSTMap"/>
+        <Button
+            android:id="@+id/btn_parse"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:text="自定义解析器"/>
 
         <Button
             android:id="@+id/btn_up"

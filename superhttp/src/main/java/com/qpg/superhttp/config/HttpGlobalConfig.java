@@ -64,21 +64,27 @@ public class HttpGlobalConfig {
     //请求失败重试次数
     private int retryCount;
 
-    private static HttpGlobalConfig instance;
+ //   private static HttpGlobalConfig instance;
     private HttpGlobalConfig() {
     }
 
-    public static HttpGlobalConfig getInstance() {
-        if (instance == null) {
-            synchronized (HttpGlobalConfig.class) {
-                if (instance == null) {
-                    instance = new HttpGlobalConfig();
-                }
-            }
-        }
-        return instance;
+//    public static HttpGlobalConfig getInstance() {
+//        if (instance == null) {
+//            synchronized (HttpGlobalConfig.class) {
+//                if (instance == null) {
+//                    instance = new HttpGlobalConfig();
+//                }
+//            }
+//        }
+//        return instance;
+//    }
+    private static class HttpGlobalConfigHolder{
+        private static final HttpGlobalConfig INSTANCE = new HttpGlobalConfig();
     }
 
+    public static final HttpGlobalConfig getInstance() {
+        return HttpGlobalConfigHolder.INSTANCE;
+    }
     /**
      * 设置CallAdapter工厂
      *

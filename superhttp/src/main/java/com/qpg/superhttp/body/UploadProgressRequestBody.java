@@ -1,11 +1,8 @@
 package com.qpg.superhttp.body;
 
 import android.support.annotation.NonNull;
-
 import com.qpg.superhttp.callback.UCallback;
-
 import java.io.IOException;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;

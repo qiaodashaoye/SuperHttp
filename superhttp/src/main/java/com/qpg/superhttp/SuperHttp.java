@@ -33,30 +33,40 @@ public class SuperHttp {
     private ApiCache.Builder apiCacheBuilder;
     private OkHttpClient okHttpClient;
     private ApiCache apiCache;
-    private volatile static SuperHttp singleton = null;
+   // private volatile static SuperHttp singleton = null;
     private static final HttpGlobalConfig NET_GLOBAL_CONFIG = HttpGlobalConfig.getInstance();
 
     private SuperHttp() {
         okHttpBuilder = new OkHttpClient.Builder();
         retrofitBuilder = new Retrofit.Builder();
-        apiCacheBuilder = new ApiCache.Builder(mContext);
-    }
-
-    public static SuperHttp getInstance() {
-        testInitialize();
-        if (singleton == null) {
-            synchronized (SuperHttp.class) {
-                if (singleton == null) {
-                    singleton = new SuperHttp();
-                }
-            }
+        if(mContext!=null){
+            apiCacheBuilder = new ApiCache.Builder(mContext);
         }
-        return singleton;
     }
 
-    /**
-     * 必须在全局Application先调用，获取context上下文，否则缓存无法使用
-     */
+    private static class SuperHttpHolder {
+        private static final SuperHttp INSTANCE = new SuperHttp();
+    }
+
+    public static final SuperHttp getInstance() {
+        return SuperHttpHolder.INSTANCE;
+    }
+
+
+
+
+//    public static SuperHttp getInstance() {
+//        testInitialize();
+//        if (singleton == null) {
+//            synchronized (SuperHttp.class) {
+//                if (singleton == null) {
+//                    singleton = new SuperHttp();
+//                }
+//            }
+//        }
+//        return singleton;
+//    }
+
     public static void init(Application app) {
         mContext = app;
     }
@@ -79,9 +89,6 @@ public class SuperHttp {
         }
     }
 
-    /**
-     * 对外暴露 OkHttpClient,方便自定义
-     */
     public static OkHttpClient.Builder getOkHttpBuilder() {
         if (getInstance().okHttpBuilder == null) {
             throw new IllegalStateException("Please call SuperHttp.init(this) in Application to initialize!");
@@ -122,7 +129,7 @@ public class SuperHttp {
      * @param request
      * @return
      */
-    public static BaseHttpRequest base(BaseHttpRequest request) {
+    public static BaseHttpRequest customRequest(BaseHttpRequest request) {
         if (request != null) {
             return request;
         } else {
@@ -260,7 +267,7 @@ public class SuperHttp {
     }
 
     /**
-     * 清楚所有缓存并关闭缓存
+     * 清除所有缓存并关闭缓存
      * @return
      */
     public static Disposable clearCache() {

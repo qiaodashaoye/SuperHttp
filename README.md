@@ -4,7 +4,13 @@
 
 - 项目地址：[https://github.com/qiaodashaoye/SuperHttp.git](https://github.com/qiaodashaoye/SuperHttp.git)
 
-- 项目依赖：`compile 'com.qpg.superhttp:SuperHttp:1.0.0'`
+- 项目依赖：`compile 'com.qpg:superhttp:1.0.1'`
+
+#### 眼前一亮的地方
+
+- 链式调用，代码可读性高
+- 动态切换请求基地址，人性化使用
+- 自定义数据解析器，解决不同项目返回数据格式不同的问题
 
 ### 调用实例：
 
@@ -73,7 +79,7 @@
 - get方式一（推荐）
 此方式需要实现ProgressDialogCallBack，第一个参数是为了方便使用者传入自定义的Dialog加载框，
 第二个参数是传入回调失败后的提示信息，使用者不必手动重写onFail()方法，使用非常简单,具体
-使用方法请看试例。
+使用方法请看实例。
 ```
  SuperHttp.get("user/getUserInfo")
                         .addParam("userid","4556")
@@ -102,7 +108,7 @@
 ```                      
 #### POST方式
 
- -post表单
+ - post表单
  ```
  SuperHttp.post("user/login")
                          .addParam("userid","4556")
@@ -113,7 +119,7 @@
                              }
                          });
  ```
- -post Map
+ - post Map
 
 ```
   HashMap<String,String> map=new HashMap<>();
@@ -128,4 +134,88 @@
                             }
                         });
 ```
+#### 自定义解析器
+```
+ Type type=new TypeToken<UserBean>() {
+                    }.getType();
 
+ SuperHttp.post("user/login")
+         .addCustomParse(new CustomApiFunc(type))
+         .request(new ProgressDialogCallBack<UserBean>(mProgressDialog,"用户信息获取失败，请刷新重试") {
+             @Override
+             public void onSuccess(UserBean data) {
+
+             }
+         });
+```
+#### 上传
+```
+ SuperHttp.upload("asd", new UCallback() {
+                    @Override
+                    public void onProgress(long currentLength, long totalLength, float percent) {
+
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                }).addFile("avatar", new File(""))
+                        .baseUrl("https://111.111.1.11/")
+                        .request(new SimpleCallBack<Object>() {
+                            @Override
+                            public void onSuccess(Object data) {
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                            }
+                        });
+```
+
+####下载
+```
+   SuperHttp.download("app.apk")
+                   .baseUrl("http://111.11.11.1/")
+                   .setFileName("dasd")
+                   .request(new SimpleCallBack<DownProgress>() {
+                       @Override
+                       public void onSuccess(DownProgress downProgress) {
+                       }
+
+                       @Override
+                       public void onFail(int errCode, String errMsg) {
+                       }
+                   });
+
+           break;
+```
+## 混淆
+```java
+#retrofit
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-dontnote retrofit2.Platform
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+-dontwarn retrofit2.Platform$Java8
+-keepattributes Signature
+-keepattributes Exceptions
+#okhttp
+-dontwarn okhttp3.**
+-keep class okhttp3.** { *;}
+-dontwarn okio.**
+# Gson
+-keep class com.google.gson.stream.** { *; }
+-keepattributes EnclosingMethod
+-keep class org.xz_sale.entity.**{*;}
+-keep class com.google.gson.** {*;}
+-keep class com.google.**{*;}
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+-keep class com.google.gson.examples.android.model.** { *; }
+
+```
+
+## 交流方式
+ * QQ: 1451449315
+ * QQ群: 122619758

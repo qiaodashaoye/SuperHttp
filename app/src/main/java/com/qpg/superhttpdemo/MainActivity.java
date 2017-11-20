@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.gson.reflect.TypeToken;
 import com.qpg.superhttp.SuperHttp;
 import com.qpg.superhttp.callback.ProgressDialogCallBack;
 import com.qpg.superhttp.callback.SimpleCallBack;
@@ -17,11 +18,12 @@ import com.qpg.superhttp.mode.DownProgress;
 import com.qpg.superhttp.subscriber.IProgressDialog;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button mGet1,mGet2,mPost1,mPost2,mUpload,mDownload;
+    private Button mGet1,mGet2,mPost1,mPost2,mParsr,mUpload,mDownload;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mGet2=findViewById(R.id.btn_get2);
         mPost1=findViewById(R.id.btn_post1);
         mPost2=findViewById(R.id.btn_post2);
+        mParsr=findViewById(R.id.btn_parse);
         mUpload=findViewById(R.id.btn_up);
         mDownload=findViewById(R.id.btn_download);
 
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mGet2.setOnClickListener(this);
         mPost1.setOnClickListener(this);
         mPost2.setOnClickListener(this);
+        mParsr.setOnClickListener(this);
         mUpload.setOnClickListener(this);
         mDownload.setOnClickListener(this);
     }
@@ -96,6 +100,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         });
                 break;
+                case R.id.btn_parse:
+                    Type type=new TypeToken<UserBean>() {
+                    }.getType();
+
+                    SuperHttp.post("user/login")
+                            .addCustomParse(new CustomApiFunc(type))
+                            .request(new ProgressDialogCallBack<UserBean>(mProgressDialog,"用户信息获取失败，请刷新重试") {
+                                @Override
+                                public void onSuccess(UserBean data) {
+
+                                }
+                            });
+                break;
             case R.id.btn_up:
 
                 SuperHttp.upload("asd", new UCallback() {
@@ -109,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 }).addFile("avatar", new File(""))
-                        .baseUrl("https://111.111.1.11/")
+                        .baseUrl("http://www.baidu.com")
                         .request(new SimpleCallBack<Object>() {
                             @Override
                             public void onSuccess(Object data) {
@@ -152,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SuperHttp.init(this.getApplication());
         SuperHttp.config()
                 //配置请求主机地址
-                .setBaseUrl("http://m.sanniujinfu.com")
+                .setBaseUrl("http://www.baidu.com")
                 //配置全局请求头
                 .globalHeaders(new HashMap<String, String>())
                 //配置全局请求参数

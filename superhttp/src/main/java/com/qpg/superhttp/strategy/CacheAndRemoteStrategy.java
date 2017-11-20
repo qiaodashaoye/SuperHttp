@@ -1,6 +1,5 @@
 package com.qpg.superhttp.strategy;
 
-
 import com.qpg.superhttp.core.ApiCache;
 import com.qpg.superhttp.mode.CacheResult;
 

@@ -20,6 +20,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
@@ -38,6 +39,7 @@ public abstract class BaseHttpRequest<R extends BaseHttpRequest> extends BaseReq
     protected long cacheTime;//本地缓存时间
     protected Map<String, String> params = new LinkedHashMap<>();//请求参数
 
+    protected Function function;
     public BaseHttpRequest() {
     }
 
@@ -102,17 +104,44 @@ public abstract class BaseHttpRequest<R extends BaseHttpRequest> extends BaseReq
     protected abstract <T> void execute(BaseCallback<T> callback);
 
     protected <T> ObservableTransformer<ResponseBody, T> norTransformer(final Type type) {
-        return new ObservableTransformer<ResponseBody, T>() {
-            @Override
-            public ObservableSource<T> apply(Observable<ResponseBody> apiResultObservable) {
-                return apiResultObservable
-                        .subscribeOn(Schedulers.io())
-                        .unsubscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .map(new ApiFunc<T>(type))
-                        .retryWhen(new ApiRetryFunc(retryCount, retryDelayMillis));
-            }
-        };
+        if(function==null){
+            return new ObservableTransformer<ResponseBody, T>() {
+                @Override
+                public ObservableSource<T> apply(Observable<ResponseBody> apiResultObservable) {
+                    return apiResultObservable
+                            .subscribeOn(Schedulers.io())
+                            .unsubscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .map(new ApiFunc<T>(type))
+                            .retryWhen(new ApiRetryFunc(retryCount, retryDelayMillis));
+                }
+            };
+        }else {
+            return new ObservableTransformer<ResponseBody, T>() {
+                @Override
+                public ObservableSource<T> apply(Observable<ResponseBody> apiResultObservable) {
+                    return apiResultObservable
+                            .subscribeOn(Schedulers.io())
+                            .unsubscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .map(function)
+                            .retryWhen(new ApiRetryFunc(retryCount, retryDelayMillis));
+                }
+            };
+        }
+
+    }
+
+    /**
+     * 添加自定义解析器
+     * @param function
+     * @return
+     */
+    public R addCustomParse(Function function) {
+        if (function != null) {
+            this.function=function;
+        }
+        return (R) this;
     }
 
     /**
