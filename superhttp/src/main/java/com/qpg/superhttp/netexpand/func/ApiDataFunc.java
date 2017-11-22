@@ -1,6 +1,5 @@
 package com.qpg.superhttp.netexpand.func;
 
-
 import com.qpg.superhttp.netexpand.common.ResponseHelper;
 import com.qpg.superhttp.netexpand.mode.ApiResult;
 

@@ -9,11 +9,13 @@ import android.widget.Button;
 
 import com.google.gson.reflect.TypeToken;
 import com.qpg.superhttp.SuperHttp;
+import com.qpg.superhttp.callback.LoadingViewCallBack;
 import com.qpg.superhttp.callback.ProgressDialogCallBack;
 import com.qpg.superhttp.callback.SimpleCallBack;
 import com.qpg.superhttp.callback.UCallback;
 import com.qpg.superhttp.cookie.CookieJarImpl;
 import com.qpg.superhttp.cookie.store.SPCookieStore;
+import com.qpg.superhttp.interf.ILoader;
 import com.qpg.superhttp.mode.DownProgress;
 import com.qpg.superhttp.subscriber.IProgressDialog;
 
@@ -23,7 +25,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button mGet1,mGet2,mPost1,mPost2,mParsr,mUpload,mDownload;
+    private Button mGet1,mGet2,mPost1,mPost2,mParsr,mUpload,mDownload,mCustomLoad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mParsr=findViewById(R.id.btn_parse);
         mUpload=findViewById(R.id.btn_up);
         mDownload=findViewById(R.id.btn_download);
+        mCustomLoad=findViewById(R.id.btn_custom_load);
 
         mGet1.setOnClickListener(this);
         mGet2.setOnClickListener(this);
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mParsr.setOnClickListener(this);
         mUpload.setOnClickListener(this);
         mDownload.setOnClickListener(this);
+        mCustomLoad.setOnClickListener(this);
     }
 
 
@@ -153,10 +157,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         });
 
                 break;
+            case R.id.btn_custom_load:
+                SuperHttp.get("v2/accept/user/getUserInfo")
+                        .addParam("userid","4556")
+                        .request(new LoadingViewCallBack<String>(iLoader) {
+                            @Override
+                            public void onSuccess(String data) {
+
+                            }
+                        });
+                break;
                 default:
         }
     }
 
+    private ILoader iLoader=new ILoader() {
+        //在此实例化自己自定义的加载框（一般为自定义的View）
+        @Override
+        public void showLoader() {
+            //在此调用加载框的显示方法
+        }
+
+        @Override
+        public void hideLoader() {
+            //在此调用加载框的隐藏方法
+        }
+    };
     private IProgressDialog mProgressDialog = new IProgressDialog() {
         @Override
         public Dialog getDialog() {

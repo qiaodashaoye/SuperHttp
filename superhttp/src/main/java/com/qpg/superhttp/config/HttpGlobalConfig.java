@@ -38,7 +38,7 @@ public class HttpGlobalConfig {
     private Factory callFactory;
     //SSL工厂
     private SSLSocketFactory sslSocketFactory;
-    public X509TrustManager trustManager;
+    private X509TrustManager trustManager;
     //主机域名验证
     private HostnameVerifier hostnameVerifier;
     //连接池

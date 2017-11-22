@@ -22,9 +22,10 @@ import com.qpg.superhttp.request.UploadRequest;
 import io.reactivex.disposables.Disposable;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-
 /**
- * @Description: 网络请求入口
+ * @author qpg
+ * @date 2017/10/21 0021
+ * @description: 网络请求入口
  */
 public class SuperHttp {
     private static Context mContext;
@@ -33,7 +34,7 @@ public class SuperHttp {
     private ApiCache.Builder apiCacheBuilder;
     private OkHttpClient okHttpClient;
     private ApiCache apiCache;
-   // private volatile static SuperHttp singleton = null;
+   //全局配置
     private static final HttpGlobalConfig NET_GLOBAL_CONFIG = HttpGlobalConfig.getInstance();
 
     private SuperHttp() {

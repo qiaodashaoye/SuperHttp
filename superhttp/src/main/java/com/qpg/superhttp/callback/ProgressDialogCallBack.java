@@ -112,7 +112,9 @@ public abstract class ProgressDialogCallBack<T> extends BaseCallback<T> implemen
         if(!CommonUtil.isConnected(SuperHttp.getContext())){
             return;
         }
-        Toast.makeText(SuperHttp.getContext(),onFailMsg,Toast.LENGTH_SHORT).show();
+        if(onFailMsg!=null){
+            Toast.makeText(SuperHttp.getContext(),onFailMsg,Toast.LENGTH_SHORT).show();
+        }
         dismissProgress();
     }
 

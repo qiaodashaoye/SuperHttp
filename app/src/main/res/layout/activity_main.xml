@@ -53,6 +53,14 @@
             android:layout_margin="8dp"
             android:text="下载"/>
 
+        <Button
+            android:id="@+id/btn_custom_load"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:text="自定义加载框"/>
+
+
     </LinearLayout>
 
 </ScrollView>

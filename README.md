@@ -6,6 +6,13 @@
 
 - 项目依赖：`compile 'com.qpg:superhttp:1.0.1'`
 
+
+该库借鉴了以下项目,非常感谢以下作者，我不是大神，我只是个菜鸟，
+但我想站在巨人的肩膀上成为巨人，再次感谢三位巨人。
+ * [https://github.com/xiaoyaoyou1212/XSnow](https://github.com/xiaoyaoyou1212/XSnow)
+ * [https://github.com/jeasonlzy/okhttp-OkGo](https://github.com/jeasonlzy/okhttp-OkGo) 
+ * [https://github.com/zhou-you/RxEasyHttp](https://github.com/zhou-you/RxEasyHttp) 
+ 
 #### 眼前一亮的地方
 
 - 链式调用，代码可读性高
@@ -173,7 +180,7 @@
                         });
 ```
 
-####下载
+#### 下载
 ```
    SuperHttp.download("app.apk")
                    .baseUrl("http://111.11.11.1/")
@@ -190,8 +197,33 @@
 
            break;
 ```
+#### 自定义加载框
+```
+  SuperHttp.get("v2/accept/user/getUserInfo")
+                  .addParam("userid","4556")
+                  .request(new LoadingViewCallBack<String>(iLoader) {
+                      @Override
+                      public void onSuccess(String data) {
+
+                      }
+                  });
+                  
+                  
+  private ILoader iLoader=new ILoader() {
+         //在此实例化自己自定义的加载框（一般为自定义的View）
+         @Override
+         public void showLoader() {
+             //在此调用加载框的显示方法
+         }
+  
+         @Override
+         public void hideLoader() {
+             //在此调用加载框的隐藏方法
+         }
+     };
+```
 ## 混淆
-```java
+``` java
 #retrofit
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
@@ -213,9 +245,25 @@
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
 -keep class com.google.gson.examples.android.model.** { *; }
-
 ```
 
 ## 交流方式
  * QQ: 1451449315
  * QQ群: 122619758
+ 
+ ## Licenses
+ ```
+  Copyright 2017 qpg
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+       http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ ```

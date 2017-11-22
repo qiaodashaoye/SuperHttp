@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.qpg.superhttp.common.GsonUtil;
 import com.qpg.superhttp.netexpand.mode.ApiResult;
 import com.qpg.superhttp.netexpand.mode.ResponseCode;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

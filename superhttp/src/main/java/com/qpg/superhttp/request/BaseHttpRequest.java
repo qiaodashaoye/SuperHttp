@@ -38,8 +38,8 @@ public abstract class BaseHttpRequest<R extends BaseHttpRequest> extends BaseReq
     protected String cacheKey;//本地缓存Key
     protected long cacheTime;//本地缓存时间
     protected Map<String, String> params = new LinkedHashMap<>();//请求参数
-
     protected Function function;
+
     public BaseHttpRequest() {
     }
 

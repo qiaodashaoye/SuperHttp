@@ -1,6 +1,5 @@
 package com.qpg.superhttp.netexpand.request;
 
-
 import com.qpg.superhttp.SuperHttp;
 import com.qpg.superhttp.callback.BaseCallback;
 import com.qpg.superhttp.core.ApiManager;
@@ -39,7 +38,8 @@ public class ApiGetRequest extends ApiBaseRequest {
         }
         if (isLocalCache) {
             this.cacheExecute(getSubType(callback)).subscribe(disposableObserver);
+        } else {
+            this.execute(getType(callback)).subscribe(disposableObserver);
         }
-        this.execute(getType(callback)).subscribe(disposableObserver);
     }
 }

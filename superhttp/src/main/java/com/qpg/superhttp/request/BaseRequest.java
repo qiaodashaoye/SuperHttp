@@ -97,7 +97,7 @@ public abstract class BaseRequest<R extends BaseRequest> {
      * @param headers
      * @return
      */
-    public R headers(HttpHeaders headers) {
+    public R setHeaders(HttpHeaders headers) {
         if (headers != null) {
             this.headers = headers;
         }
