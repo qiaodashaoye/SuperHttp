@@ -99,16 +99,16 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 //项目主页
-def siteUrl = 'https://github.com/qiaodashaoye/SuperHttp.git'    // project homepage
+def siteUrl = 'https://github.com/qiaodashaoye/SuperHttp'    // project homepage
 //项目的版本控制地址
-//def gitUrl = 'https://github.com/linglongxin24/SQLite.git' // project git
+def gitUrl = 'https://github.com/qiaodashaoye/SuperHttp.git' // project git
 
 //发布到组织名称名字，必须填写
 group = "com.qpg"
 //发布到JCenter上的项目名字，必须填写
 def libName = "SuperHttp"
 // 版本号，下次更新是只需要更改版本号即可
-version = "1.0.2"
+version = "1.0.3"
 /**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **/
 
 //生成源文件
@@ -124,7 +124,7 @@ task javadoc(type: Javadoc) {
     options.charSet 'UTF-8'
     options.author true
     options.version true
-  //  options.links "https://github.com/linglongxin24/FastDev/tree/master/mylibrary/docs/javadoc"
+
     failOnError false
 }
 
@@ -168,8 +168,8 @@ install {
                     }
                 }
                 scm {
-              //      connection gitUrl
-             //       developerConnection gitUrl
+                    connection gitUrl
+                    developerConnection gitUrl
                     url siteUrl
                 }
             }

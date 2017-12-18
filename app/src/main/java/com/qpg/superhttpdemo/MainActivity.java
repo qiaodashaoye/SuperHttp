@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.qpg.superhttp.SuperHttp;
 import com.qpg.superhttp.callback.LoadingViewCallBack;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button mGet1,mGet2,mPost1,mPost2,mParsr,mUpload,mDownload,mCustomLoad;
+    private Button mGet1,mGet2,mPost1,mPost2,mPost3,mParsr,mUpload,mDownload,mCustomLoad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mGet2=findViewById(R.id.btn_get2);
         mPost1=findViewById(R.id.btn_post1);
         mPost2=findViewById(R.id.btn_post2);
+        mPost3=findViewById(R.id.btn_post3);
         mParsr=findViewById(R.id.btn_parse);
         mUpload=findViewById(R.id.btn_up);
         mDownload=findViewById(R.id.btn_download);
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mGet2.setOnClickListener(this);
         mPost1.setOnClickListener(this);
         mPost2.setOnClickListener(this);
+        mPost3.setOnClickListener(this);
         mParsr.setOnClickListener(this);
         mUpload.setOnClickListener(this);
         mDownload.setOnClickListener(this);
@@ -97,6 +100,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 map.put("key2","5456");
                 SuperHttp.post("user/login")
                         .addParams(map)
+                        .request(new ProgressDialogCallBack<String>(mProgressDialog,"用户信息获取失败，请刷新重试") {
+                            @Override
+                            public void onSuccess(String data) {
+
+                            }
+                        });
+                break;
+            case R.id.btn_post3:
+                UserBean userBean=new UserBean();
+                userBean.setAvatarUrl("http://www.ae.com/asd.png");
+                userBean.setUserName("小和尚");
+                SuperHttp.post("user/register")
+                        .setJson(new Gson().toJson(userBean))
                         .request(new ProgressDialogCallBack<String>(mProgressDialog,"用户信息获取失败，请刷新重试") {
                             @Override
                             public void onSuccess(String data) {

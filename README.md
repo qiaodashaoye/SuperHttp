@@ -4,7 +4,7 @@
 
 - 项目地址：[https://github.com/qiaodashaoye/SuperHttp.git](https://github.com/qiaodashaoye/SuperHttp.git)
 
-- 项目依赖：`compile 'com.qpg:superhttp:1.0.1'`
+- 项目依赖：`compile 'com.qpg:superhttp:1.0.3'`
 
 
 该库借鉴了以下项目,非常感谢以下作者，我不是大神，我只是个菜鸟，
@@ -140,6 +140,22 @@
 
                             }
                         });
+```
+
+ - post Json
+
+```
+   UserBean userBean=new UserBean();
+                  userBean.setAvatarUrl("http://www.ae.com/asd.png");
+                  userBean.setUserName("小和尚");
+                  SuperHttp.post("user/register")
+                          .setJson(new Gson().toJson(userBean))
+                          .request(new ProgressDialogCallBack<String>(mProgressDialog,"用户信息获取失败，请刷新重试") {
+                              @Override
+                              public void onSuccess(String data) {
+  
+                              }
+                          });
 ```
 #### 自定义解析器
 ```

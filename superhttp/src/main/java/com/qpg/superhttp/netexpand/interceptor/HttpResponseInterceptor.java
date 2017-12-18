@@ -2,6 +2,7 @@ package com.qpg.superhttp.netexpand.interceptor;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.qpg.superhttp.common.GsonUtil;
 import com.qpg.superhttp.netexpand.mode.ApiResult;
@@ -20,6 +21,8 @@ import okio.BufferedSource;
 
 /**
  * @Description: Http响应拦截
+ * @author: <a href="http://www.xiaoyaoyou1212.com">DAWI</a>
+ * @date: 2017-04-08 15:15
  */
 public abstract class HttpResponseInterceptor implements Interceptor {
     private static final Charset UTF8 = Charset.forName("UTF-8");
@@ -48,7 +51,7 @@ public abstract class HttpResponseInterceptor implements Interceptor {
             return response;
         }
         String bodyString = buffer.clone().readString(charset);
-
+        Log.i("qpg------>","<-- HTTP Interceptor:" + bodyString + " host:" + request.url().toString());
         boolean isText = isText(contentType);
         if (!isText) {
             return response;
@@ -90,6 +93,7 @@ public abstract class HttpResponseInterceptor implements Interceptor {
 
     /**
      * AccessToken错误或已过期
+     *
      * @param chain
      * @param request
      * @return
@@ -98,6 +102,7 @@ public abstract class HttpResponseInterceptor implements Interceptor {
 
     /**
      * RefreshToken错误或已过期
+     *
      * @param chain
      * @param request
      * @return
@@ -106,6 +111,7 @@ public abstract class HttpResponseInterceptor implements Interceptor {
 
     /**
      * 帐号在其它手机已登录
+     *
      * @param chain
      * @param request
      * @return
@@ -114,6 +120,7 @@ public abstract class HttpResponseInterceptor implements Interceptor {
 
     /**
      * 签名错误
+     *
      * @param chain
      * @param request
      * @return
@@ -122,6 +129,7 @@ public abstract class HttpResponseInterceptor implements Interceptor {
 
     /**
      * timestamp过期
+     *
      * @param chain
      * @param request
      * @return
@@ -130,6 +138,7 @@ public abstract class HttpResponseInterceptor implements Interceptor {
 
     /**
      * 缺少授权信息
+     *
      * @param chain
      * @param request
      * @return
