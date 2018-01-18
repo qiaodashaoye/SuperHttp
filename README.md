@@ -240,27 +240,28 @@
 ```
 ## 混淆
 ``` java
+#gson
+-dontwarn com.google.gson.**
+-keep class com.google.gson.** { *; }
+
+#rxjava
+-dontwarn io.reactivex.**
+-keep class io.reactivex.** { *; }
+
+#okhttp
+-dontwarn okio.**
+-keep class okio.** { *; }
+-dontwarn okhttp3.**
+-keep class okhttp3.** { *; }
+
 #retrofit
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
--dontnote retrofit2.Platform
--dontnote retrofit2.Platform$IOS$MainThreadExecutor
--dontwarn retrofit2.Platform$Java8
 -keepattributes Signature
 -keepattributes Exceptions
-#okhttp
--dontwarn okhttp3.**
--keep class okhttp3.** { *;}
--dontwarn okio.**
-# Gson
--keep class com.google.gson.stream.** { *; }
--keepattributes EnclosingMethod
--keep class org.xz_sale.entity.**{*;}
--keep class com.google.gson.** {*;}
--keep class com.google.**{*;}
--keep class sun.misc.Unsafe { *; }
--keep class com.google.gson.stream.** { *; }
--keep class com.google.gson.examples.android.model.** { *; }
+
+#netexpand
+-keep class com.qpg.superhttp.netexpand.mode.ApiResult { *; }
 ```
 
 ## 交流方式
