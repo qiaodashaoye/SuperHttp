@@ -351,6 +351,9 @@ public abstract class BaseRequest<R extends BaseRequest> {
         if (httpGlobalConfig.getHttpCache() != null) {
             SuperHttp.getOkHttpBuilder().cache(httpGlobalConfig.getHttpCache());
         }
+        SuperHttp.getOkHttpBuilder().connectTimeout(SuperConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        SuperHttp.getOkHttpBuilder().writeTimeout(SuperConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        SuperHttp.getOkHttpBuilder().readTimeout(SuperConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
     }
 
     /**

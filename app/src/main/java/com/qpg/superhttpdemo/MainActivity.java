@@ -159,12 +159,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_download:
 
-                SuperHttp.download("app.apk")
-                        .baseUrl("http://111.11.11.1/")
-                        .setFileName("dasd")
+                SuperHttp.download("updateApp")
+                        .setFileName("app.apk")
                         .request(new SimpleCallBack<DownProgress>() {
                             @Override
                             public void onSuccess(DownProgress downProgress) {
+
                             }
 
                             @Override

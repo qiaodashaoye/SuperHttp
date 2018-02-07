@@ -22,6 +22,15 @@
 ### 调用实例：
 
 第一步需要在application中进行全局初始化以及添加全局相关配置，具体使用如下：
+> 简单初始化，使用默认配置，方便快捷
+```
+SuperHttp.init(this);
+SuperHttp.config()
+        //配置请求主机地址
+        .baseUrl("服务器地址");
+        
+```
+> 详细初始化,自定义配置
 ```
   SuperHttp.init(this);
   SuperHttp.config()
