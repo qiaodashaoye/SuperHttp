@@ -84,9 +84,9 @@ SuperHttp.config()
           //配置连接池
 //        .connectionPool(new ConnectionPool())
           //配置主机证书验证
-//        .hostnameVerifier(new SSLUtil.UnSafeHostnameVerifier("http://11.1.11.11/"))
+//        .hostnameVerifier(new HttpsUtils.UnSafeHostnameVerifier("http://11.1.11.11/"))
           //配置SSL证书验证
-//        .setSSLSocketFactory(SSLUtil.getSslSocketFactory(null, null, null))
+//        .setSSLSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory)
          //配置主机代理
 //        .setProxy(new Proxy(Proxy.Type.HTTP, new SocketAddress() {}));
 

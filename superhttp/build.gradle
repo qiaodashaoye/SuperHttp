@@ -23,13 +23,13 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.6'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.7.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.12'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.4.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
@@ -108,7 +108,7 @@ group = "com.qpg"
 //发布到JCenter上的项目名字，必须填写
 def libName = "SuperHttp"
 // 版本号，下次更新是只需要更改版本号即可
-version = "1.0.3"
+version = "1.0.4"
 /**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **/
 
 //生成源文件

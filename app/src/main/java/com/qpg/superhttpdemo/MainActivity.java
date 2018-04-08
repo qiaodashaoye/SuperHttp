@@ -16,13 +16,22 @@ import com.qpg.superhttp.callback.SimpleCallBack;
 import com.qpg.superhttp.callback.UCallback;
 import com.qpg.superhttp.cookie.CookieJarImpl;
 import com.qpg.superhttp.cookie.store.SPCookieStore;
+import com.qpg.superhttp.interceptor.HttpLogInterceptor;
+import com.qpg.superhttp.interceptor.NoCacheInterceptor;
 import com.qpg.superhttp.interf.ILoader;
 import com.qpg.superhttp.mode.DownProgress;
 import com.qpg.superhttp.subscriber.IProgressDialog;
+import com.qpg.superhttp.utils.HttpsUtils;
 
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+
+import okhttp3.Call;
+import okhttp3.ConnectionPool;
+import okhttp3.Request;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -229,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //配置是否使用cookie
                 .isUseCookie(true)
                 //配置自定义cookie
-                .setCookie(new CookieJarImpl(new SPCookieStore(this)));
+                .setCookie(new CookieJarImpl(new SPCookieStore(this)))
         //配置是否使用OkHttp的默认缓存
 //        .setHttpCache(true)
         //配置OkHttp缓存路径
@@ -241,28 +250,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //配置自定义在线缓存
 //        .cacheOnline(new Cache(new File(SuperHttp.getContext().getCacheDir(), ViseConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
         //配置开启Gzip请求方式，需要服务器支持
-//        .postGzipInterceptor()
+        .postGzipInterceptor()
         //配置应用级拦截器
-//        .setInterceptor(new HttpLogInterceptor().setLevel(HttpLogInterceptor.Level.BODY))
+        .setInterceptor(new HttpLogInterceptor().setLevel(HttpLogInterceptor.Level.BODY))
         //配置网络拦截器
-//        .networkInterceptor(new NoCacheInterceptor())
+        .networkInterceptor(new NoCacheInterceptor())
         //配置转换工厂
-//        .setConverterFactory(GsonConverterFactory.create())
+        .setConverterFactory(GsonConverterFactory.create())
         //配置适配器工厂
-//        .callAdapterFactory(RxJava2CallAdapterFactory.create())
+        .callAdapterFactory(RxJava2CallAdapterFactory.create())
         //配置请求工厂
-//        .setCallFactory(new Call.Factory() {
-//            @Override
-//            public Call newCall(Request request) {
-//                return null;
-//            }
-//        })
+        .setCallFactory(new Call.Factory() {
+            @Override
+            public Call newCall(Request request) {
+                return null;
+            }
+        })
         //配置连接池
-//        .connectionPool(new ConnectionPool())
+       .connectionPool(new ConnectionPool())
         //配置主机证书验证
-//        .hostnameVerifier(new SSLUtil.UnSafeHostnameVerifier("http://192.168.1.100/"))
+        .hostnameVerifier( new HttpsUtils.UnSafeHostnameVerifier("http://192.168.1.100/"))
         //配置SSL证书验证
-//        .setSSLSocketFactory(SSLUtil.getSslSocketFactory(null, null, null))
+        .setSSLSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory);
         //配置主机代理
 //        .setProxy(new Proxy(Proxy.Type.HTTP, new SocketAddress() {}));
 
