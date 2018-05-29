@@ -7,7 +7,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -22,7 +22,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.7.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     compile 'io.reactivex.rxjava2:rxjava:2.1.12'
@@ -34,68 +34,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
-
-//
-//apply plugin: 'com.github.dcendents.android-maven'
-//apply plugin: 'com.jfrog.bintray'
-//
-//
-////发布到组织名称名字，必须填写
-//group = "com.qpg"
-////发布到JCenter上的项目名字，必须填写
-//def libName = "SuperHttp"
-//// 版本号，下次更新是只需要更改版本号即可
-//version = "1.0.1"
-///**  上面配置后上传至jcenter后的编译路径是这样的： compile       'com.qpg:SuperHttp:1.0.0'  **/
-//
-////生成源文件
-//task sourcesJar(type: Jar) {
-//    from android.sourceSets.main.java.srcDirs
-//    classifier = 'sources'
-//}
-//
-//// 配置maven库，生成POM.xml文件
-//install {
-//    repositories.mavenInstaller {
-//        // This generates POM.xml with proper parameters
-//        pom {
-//            project {
-//                packaging 'aar'
-//                name 'This is iot sdk'
-//                developers {
-//                    developer {
-//                        id 'SuperHttp'
-//                        name 'qpg'
-//                        email '1451449315@qq.com'
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-//
-////上传到jcenter
-//Properties properties = new Properties()
-//properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//bintray {
-//    user = properties.getProperty("bintray.user")    //读取 local.properties 文件里面的 bintray.user
-//    key = properties.getProperty("bintray.apikey")   //读取 local.properties 文件里面的 bintray.apikey
-//    configurations = ['archives']
-//    pkg {
-//        userOrg = "qpglibs"
-//        repo = "maven"
-//        name = libName    //发布到JCenter上的项目名字，必须填写
-//        desc = 'This is a iot sdk'    //项目描述
-//        licenses = ["Apache-2.0"]
-//        publish = true
-//    }
-//}
-//
-
+apply from: '../bintray.gradle'
 
 /** 以下开始是将Android Library上传到jcenter的相关配置**/
 
-apply plugin: 'com.github.dcendents.android-maven'
+/*apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 //项目主页
@@ -109,7 +52,7 @@ group = "com.qpg"
 def libName = "SuperHttp"
 // 版本号，下次更新是只需要更改版本号即可
 version = "1.0.4"
-/**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **/
+*//**  上面配置后上传至jcenter后的编译路径是这样的： compile 'cn.bluemobi.dylan:sqlitelibrary:1.0'  **//*
 
 //生成源文件
 task sourcesJar(type: Jar) {
@@ -194,4 +137,4 @@ bintray {
         licenses = ["Apache-2.0"]
         publish = true
     }
-}
+}*/
