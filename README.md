@@ -7,11 +7,7 @@
 - 项目依赖：`compile 'com.qpg:superhttp:1.0.3'`
 
 
-该库借鉴了以下项目,非常感谢以下作者，我不是大神，我只是个菜鸟，
-但我想站在巨人的肩膀上成为巨人，再次感谢两位巨人。
- * [https://github.com/jeasonlzy/okhttp-OkGo](https://github.com/jeasonlzy/okhttp-OkGo) 
- * [https://github.com/zhou-you/RxEasyHttp](https://github.com/zhou-you/RxEasyHttp) 
- 
+
 #### 眼前一亮的地方
 
 - 链式调用，代码可读性高
