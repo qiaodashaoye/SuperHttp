@@ -8,8 +8,7 @@
 
 
 该库借鉴了以下项目,非常感谢以下作者，我不是大神，我只是个菜鸟，
-但我想站在巨人的肩膀上成为巨人，再次感谢三位巨人。
- * [https://github.com/xiaoyaoyou1212/XSnow](https://github.com/xiaoyaoyou1212/XSnow)
+但我想站在巨人的肩膀上成为巨人，再次感谢两位巨人。
  * [https://github.com/jeasonlzy/okhttp-OkGo](https://github.com/jeasonlzy/okhttp-OkGo) 
  * [https://github.com/zhou-you/RxEasyHttp](https://github.com/zhou-you/RxEasyHttp) 
  
