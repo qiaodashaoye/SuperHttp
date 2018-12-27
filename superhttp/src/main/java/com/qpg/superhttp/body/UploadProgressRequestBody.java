@@ -1,6 +1,6 @@
 package com.qpg.superhttp.body;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.qpg.superhttp.callback.UCallback;
 import java.io.IOException;
 import io.reactivex.Observable;

@@ -13,6 +13,8 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HEAD;
+import retrofit2.http.HTTP;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.OPTIONS;
 import retrofit2.http.PATCH;
@@ -55,9 +57,24 @@ public interface ApiService {
     @PATCH()
     Observable<ResponseBody> patch(@Url() String url, @FieldMap Map<String, String> maps);
 
-    @FormUrlEncoded
+    @PATCH()
+    Observable<ResponseBody> patchBody(@Url() String url, @Body RequestBody requestBody);
+
     @DELETE()
-    Observable<ResponseBody> delete(@Url() String url, @FieldMap Map<String, String> maps);
+    Observable<ResponseBody> delete(@Url() String url, @QueryMap Map<String, String> maps);
+
+    //@DELETE()//delete body请求比较特殊 需要自定义
+    @HTTP(method = "DELETE",/*path = "",*/hasBody = true)
+    Observable<ResponseBody> deleteBody(@Url String url, @Body Object object);
+
+    //@DELETE()//delete body请求比较特殊 需要自定义
+    @HTTP(method = "DELETE",/*path = "",*/hasBody = true)
+    Observable<ResponseBody> deleteBody(@Url String url, @Body RequestBody body);
+
+    //@DELETE()//delete body请求比较特殊 需要自定义
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @HTTP(method = "DELETE",/*path = "",*/hasBody = true)
+    Observable<ResponseBody> deleteJson(@Url String url, @Body RequestBody jsonBody);
 
     @Streaming
     @GET()

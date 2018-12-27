@@ -501,14 +501,16 @@ public class HttpGlobalConfig {
     }
 
     public int getRetryDelayMillis() {
-        if (retryDelayMillis <= 0) {
+
+
+        if (retryDelayMillis < 0) {
             retryDelayMillis = SuperConfig.DEFAULT_RETRY_DELAY_MILLIS;
         }
         return retryDelayMillis;
     }
 
     public int getRetryCount() {
-        if (retryCount <= 0) {
+        if (retryCount < 0) {
             retryCount = SuperConfig.DEFAULT_RETRY_COUNT;
         }
         return retryCount;

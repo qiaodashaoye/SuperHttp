@@ -1,12 +1,10 @@
 package com.qpg.superhttp.netexpand.interceptor;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.qpg.superhttp.common.GsonUtil;
 import com.qpg.superhttp.netexpand.mode.ApiResult;
-import com.qpg.superhttp.netexpand.mode.ResponseCode;
 import com.qpg.superhttp.netexpand.temp.DefaultResponseState;
 import com.qpg.superhttp.netexpand.temp.IResponseState;
 import com.qpg.superhttp.netexpand.temp.Utils;

@@ -1,7 +1,7 @@
 package com.qpg.superhttp.interceptor;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.qpg.superhttp.utils.CommonUtil;
 import com.qpg.superhttp.common.SuperConfig;

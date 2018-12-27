@@ -1,6 +1,6 @@
 package com.qpg.superhttp.interceptor;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.qpg.superhttp.body.UploadProgressRequestBody;
 import com.qpg.superhttp.callback.UCallback;

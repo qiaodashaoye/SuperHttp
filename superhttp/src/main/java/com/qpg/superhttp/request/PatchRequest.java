@@ -5,23 +5,40 @@ import com.qpg.superhttp.SuperHttp;
 import com.qpg.superhttp.callback.BaseCallback;
 import com.qpg.superhttp.core.ApiManager;
 import com.qpg.superhttp.mode.CacheResult;
+import com.qpg.superhttp.mode.MediaTypes;
 import com.qpg.superhttp.subscriber.ApiCallbackSubscriber;
 
 import java.lang.reflect.Type;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * @Description: Patch请求
  */
 public class PatchRequest extends BaseHttpRequest<PatchRequest> {
+
+    protected RequestBody requestBody;
+    protected MediaType mediaType;
+    protected String content;
+
     public PatchRequest(String suffixUrl) {
         super(suffixUrl);
     }
 
     @Override
     protected <T> Observable<T> execute(Type type) {
+
+        if (requestBody != null) {
+            return apiService.patchBody(suffixUrl, requestBody).compose(this.<T>norTransformer(type));
+        }
+        if (content != null && mediaType != null) {
+            requestBody = RequestBody.create(mediaType, content);
+            return apiService.patchBody(suffixUrl, requestBody).compose(this.<T>norTransformer(type));
+        }
+
         return apiService.patch(suffixUrl, params).compose(this.<T>norTransformer(type));
     }
 
@@ -41,5 +58,11 @@ public class PatchRequest extends BaseHttpRequest<PatchRequest> {
         } else {
             this.execute(getType(callback)).subscribe(disposableObserver);
         }
+    }
+
+    public PatchRequest setJson(String json) {
+        this.content = json;
+        this.mediaType = MediaTypes.APPLICATION_JSON_TYPE;
+        return this;
     }
 }

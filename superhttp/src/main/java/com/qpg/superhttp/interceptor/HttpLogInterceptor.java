@@ -1,6 +1,6 @@
 package com.qpg.superhttp.interceptor;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.io.IOException;
 import java.net.URLDecoder;
