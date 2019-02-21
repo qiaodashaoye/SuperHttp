@@ -4,7 +4,7 @@
 
 - 项目地址：[https://github.com/qiaodashaoye/SuperHttp.git](https://github.com/qiaodashaoye/SuperHttp.git)
 
-- 项目依赖：`implementation 'com.qpg:superhttp:1.0.4'`
+- 项目依赖：`implementation 'com.qpg.net:superhttp:1.0.1'`
 
 
 该库借鉴了以下项目,非常感谢以下作者，我不是大神，我只是个菜鸟，
@@ -27,7 +27,7 @@
 SuperHttp.init(this);
 SuperHttp.config()
         //配置请求主机地址
-        .baseUrl("服务器地址");
+        .setBaseUrl("服务器地址");
         
 ```
 > 详细初始化,自定义配置
@@ -35,7 +35,7 @@ SuperHttp.config()
   SuperHttp.init(this);
   SuperHttp.config()
           //配置请求主机地址
-          .setBaseUrl("http://11.11.1.1.com")
+          .setBaseUrl("http://11.11.1.1.com/")
           //配置全局请求头
           .globalHeaders(new HashMap<String, String>())
           //配置全局请求参数

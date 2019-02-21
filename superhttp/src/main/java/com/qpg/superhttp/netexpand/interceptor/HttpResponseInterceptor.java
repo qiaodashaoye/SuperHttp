@@ -22,7 +22,6 @@ import okio.BufferedSource;
 
 /**
  * @Description: Http响应拦截
- * @author: <a href="http://www.xiaoyaoyou1212.com">DAWI</a>
  * @date: 2017-04-08 15:15
  */
 public abstract class HttpResponseInterceptor implements Interceptor {

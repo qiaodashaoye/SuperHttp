@@ -1,30 +1,30 @@
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-
+// ./gradlew clean build bintrayUpload -PbintrayUser=q-p-g -PbintrayKey=XXXXX -PdryRun=false
 version = android.defaultConfig.versionName
 group = GROUP
 
-install{
-    repositories.mavenInstaller{
-        pom{
-            project{
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
                 packaging PACKAGING
                 name DESCRIBE
                 url SITE_URL
-                licenses{
-                    license{
+                licenses {
+                    license {
                         name LICENSE_NAME
                         url LICENSE_URL
                     }
                 }
-                developers{
-                    developer{
+                developers {
+                    developer {
                         id DEVELOPER_ID
                         name DEVELOPER_NAME
                         email DEVELOPER_EMAIL
                     }
                 }
-                scm{
+                scm {
                     connection GIT_URL
                     developerConnection GIT_URL
                     url SITE_URL
@@ -34,19 +34,18 @@ install{
     }
 }
 
-//生成源文件
-task sourcesJar(type: Jar){
+task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
-//生成文档
-task javadoc(type: Javadoc){
+
+task javadoc(type: Javadoc) {
     options.encoding = "UTF-8"
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
-//文档打包成jar
-task javadocJar(type: Jar, dependsOn: javadoc){
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
@@ -60,23 +59,21 @@ tasks.withType(Javadoc) {
     options.addStringOption('encoding', 'UTF-8')
     options.addStringOption('charSet', 'UTF-8')
 }
-//上传到jcenter所需要的源码文件
-artifacts{
+
+artifacts {
     archives javadocJar
     archives sourcesJar
 }
 
-//上传到jcenter
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
-bintray{
-    user = properties.getProperty("bintray.user")    //读取 local.properties 文件里面的 bintray.user
-    key = properties.getProperty("bintray.apikey")    //读取 local.properties 文件里面的 bintray.apikey
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
-    pkg{
-        userOrg = USERORG
+    pkg {
         repo = PROJECT_REPO
-        name = PROJECT_NAME    //发布到JCenter上的项目名字，必须填写
+        name = PROJECT_NAME
         websiteUrl = SITE_URL
         vcsUrl = GIT_URL
         licenses = ["Apache-2.0"]

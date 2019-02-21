@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -30,6 +31,7 @@ import java.util.HashMap;
 import okhttp3.Call;
 import okhttp3.ConnectionPool;
 import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -217,6 +219,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
     private void init(){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                //打印retrofit日志
+                Log.i("------------->","retrofitBack = "+message);
+            }
+        });
         SuperHttp.init(this.getApplication());
         SuperHttp.config()
                 //配置请求主机地址
