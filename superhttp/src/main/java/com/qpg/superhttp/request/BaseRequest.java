@@ -276,7 +276,7 @@ public abstract class BaseRequest<R extends BaseRequest> {
             if (httpGlobalConfig.getCallFactory() != null) {
                 newRetrofitBuilder.callFactory(httpGlobalConfig.getCallFactory());
             }
-            newBuilder.hostnameVerifier(new HttpsUtils.UnSafeHostnameVerifier(baseUrl));
+            newBuilder.hostnameVerifier(HttpsUtils.UnSafeHostnameVerifier);
             newRetrofitBuilder.client(newBuilder.build());
             retrofit = newRetrofitBuilder.build();
         } else {
@@ -310,7 +310,7 @@ public abstract class BaseRequest<R extends BaseRequest> {
         }
 
         if (httpGlobalConfig.getHostnameVerifier() == null) {
-            httpGlobalConfig.hostnameVerifier(new HttpsUtils.UnSafeHostnameVerifier(httpGlobalConfig.getBaseUrl()));
+            httpGlobalConfig.hostnameVerifier(HttpsUtils.UnSafeHostnameVerifier);
         }
         SuperHttp.getOkHttpBuilder().hostnameVerifier(httpGlobalConfig.getHostnameVerifier());
 

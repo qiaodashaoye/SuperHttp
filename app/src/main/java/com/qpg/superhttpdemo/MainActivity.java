@@ -15,6 +15,7 @@ import com.qpg.superhttp.callback.LoadingViewCallBack;
 import com.qpg.superhttp.callback.ProgressDialogCallBack;
 import com.qpg.superhttp.callback.SimpleCallBack;
 import com.qpg.superhttp.callback.UCallback;
+import com.qpg.superhttp.common.SuperConfig;
 import com.qpg.superhttp.cookie.CookieJarImpl;
 import com.qpg.superhttp.cookie.store.SPCookieStore;
 import com.qpg.superhttp.interceptor.HttpLogInterceptor;
@@ -251,13 +252,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //配置是否使用OkHttp的默认缓存
 //        .setHttpCache(true)
         //配置OkHttp缓存路径
-//        .setHttpCacheDirectory(new File(SuperHttp.getContext().getCacheDir(), ViseConfig.CACHE_HTTP_DIR))
+ //       .setHttpCacheDirectory(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR))
         //配置自定义OkHttp缓存
-//        .httpCache(new Cache(new File(SuperHttp.getContext().getCacheDir(), ViseConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
+//        .httpCache(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
         //配置自定义离线缓存
-//        .cacheOffline(new Cache(new File(SuperHttp.getContext().getCacheDir(), ViseConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
+//        .cacheOffline(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
         //配置自定义在线缓存
-//        .cacheOnline(new Cache(new File(SuperHttp.getContext().getCacheDir(), ViseConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
+//        .cacheOnline(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
         //配置开启Gzip请求方式，需要服务器支持
         .postGzipInterceptor()
         //配置应用级拦截器
@@ -278,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //配置连接池
        .connectionPool(new ConnectionPool())
         //配置主机证书验证
-        .hostnameVerifier( new HttpsUtils.UnSafeHostnameVerifier("http://192.168.1.100/"))
+        .hostnameVerifier(HttpsUtils.UnSafeHostnameVerifier)
         //配置SSL证书验证
         .setSSLSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory);
         //配置主机代理

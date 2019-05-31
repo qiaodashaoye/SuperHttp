@@ -57,13 +57,13 @@ SuperHttp.config()
           //配置是否使用OkHttp的默认缓存
 //        .setHttpCache(true)
           //配置OkHttp缓存路径
-//        .setHttpCacheDirectory(new File(SuperHttp.getContext().getCacheDir(), ViseConfig.CACHE_HTTP_DIR))
+//        .setHttpCacheDirectory(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR))
           //配置自定义OkHttp缓存
-//        .httpCache(new Cache(new File(SuperHttp.getContext().getCacheDir(), ViseConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
+//        .httpCache(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
           //配置自定义离线缓存
-//        .cacheOffline(new Cache(new File(SuperHttp.getContext().getCacheDir(), ViseConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
+//        .cacheOffline(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
           //配置自定义在线缓存
-//        .cacheOnline(new Cache(new File(SuperHttp.getContext().getCacheDir(), ViseConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
+//        .cacheOnline(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
           //配置开启Gzip请求方式，需要服务器支持
 //        .postGzipInterceptor()
           //配置应用级拦截器
@@ -84,7 +84,7 @@ SuperHttp.config()
           //配置连接池
 //        .connectionPool(new ConnectionPool())
           //配置主机证书验证
-//        .hostnameVerifier(new HttpsUtils.UnSafeHostnameVerifier("http://11.1.11.11/"))
+//        .hostnameVerifier(HttpsUtils.UnSafeHostnameVerifier)
           //配置SSL证书验证
 //        .setSSLSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory)
          //配置主机代理
@@ -182,6 +182,11 @@ SuperHttp.config()
 ```
 #### 上传
 ```
+ SuperHttp.upload("user/updateAvatar")
+                            .addImageFile("head",new File("path"))
+                            .request();
+```
+```
  SuperHttp.upload("asd", new UCallback() {
                     @Override
                     public void onProgress(long currentLength, long totalLength, float percent) {
@@ -192,7 +197,7 @@ SuperHttp.config()
                     public void onFail(int errCode, String errMsg) {
 
                     }
-                }).addFile("avatar", new File(""))
+                }).addFile("file", new File(""))
                         .baseUrl("https://111.111.1.11/")
                         .request(new SimpleCallBack<Object>() {
                             @Override
