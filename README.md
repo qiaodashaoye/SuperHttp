@@ -4,7 +4,7 @@
 
 - 项目地址：[https://github.com/qiaodashaoye/SuperHttp.git](https://github.com/qiaodashaoye/SuperHttp.git)
 
-- 项目依赖：`implementation 'com.qpg.net:superhttp:1.0.1'`
+- 项目依赖：`implementation 'com.qpg.net:superhttp:1.0.3'`
 
 
 该库借鉴了以下项目,非常感谢以下作者，我不是大神，我只是个菜鸟，
