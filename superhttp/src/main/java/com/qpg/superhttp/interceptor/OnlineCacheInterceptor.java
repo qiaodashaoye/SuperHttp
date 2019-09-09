@@ -3,7 +3,7 @@ package com.qpg.superhttp.interceptor;
 import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.qpg.superhttp.common.SuperConfig;
+import com.qpg.superhttp.config.SuperConfig;
 
 import java.io.IOException;
 

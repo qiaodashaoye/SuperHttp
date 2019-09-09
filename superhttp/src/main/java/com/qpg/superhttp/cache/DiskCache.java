@@ -7,8 +7,8 @@ import android.text.TextUtils;
 
 import com.qpg.superhttp.utils.CommonUtil;
 import com.qpg.superhttp.utils.MD5Util;
-import com.qpg.superhttp.common.GsonUtil;
-import com.qpg.superhttp.common.SuperConfig;
+import com.qpg.superhttp.utils.GsonUtil;
+import com.qpg.superhttp.config.SuperConfig;
 
 import java.io.File;
 import java.io.IOException;

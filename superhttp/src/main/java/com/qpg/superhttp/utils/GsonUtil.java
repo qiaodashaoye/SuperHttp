@@ -1,4 +1,4 @@
-package com.qpg.superhttp.common;
+package com.qpg.superhttp.utils;
 
 import com.google.gson.Gson;
 

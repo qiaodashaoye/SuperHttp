@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.qpg.superhttp.SuperHttp;
 import com.qpg.superhttp.api.ApiService;
 import com.qpg.superhttp.callback.BaseCallback;
-import com.qpg.superhttp.common.SuperConfig;
+import com.qpg.superhttp.config.SuperConfig;
 import com.qpg.superhttp.func.ApiFunc;
 import com.qpg.superhttp.func.ApiRetryFunc;
 import com.qpg.superhttp.mode.ApiHost;

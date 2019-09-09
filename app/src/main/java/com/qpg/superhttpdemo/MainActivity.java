@@ -15,7 +15,6 @@ import com.qpg.superhttp.callback.LoadingViewCallBack;
 import com.qpg.superhttp.callback.ProgressDialogCallBack;
 import com.qpg.superhttp.callback.SimpleCallBack;
 import com.qpg.superhttp.callback.UCallback;
-import com.qpg.superhttp.common.SuperConfig;
 import com.qpg.superhttp.cookie.CookieJarImpl;
 import com.qpg.superhttp.cookie.store.SPCookieStore;
 import com.qpg.superhttp.interceptor.HttpLogInterceptor;

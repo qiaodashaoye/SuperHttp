@@ -3,7 +3,7 @@ package com.qpg.superhttp.netexpand.interceptor;
 import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.qpg.superhttp.common.GsonUtil;
+import com.qpg.superhttp.utils.GsonUtil;
 import com.qpg.superhttp.netexpand.mode.ApiResult;
 import com.qpg.superhttp.netexpand.temp.DefaultResponseState;
 import com.qpg.superhttp.netexpand.temp.IResponseState;

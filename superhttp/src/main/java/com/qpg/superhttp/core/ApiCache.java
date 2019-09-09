@@ -3,7 +3,7 @@ package com.qpg.superhttp.core;
 import android.content.Context;
 
 import com.qpg.superhttp.cache.DiskCache;
-import com.qpg.superhttp.common.SuperConfig;
+import com.qpg.superhttp.config.SuperConfig;
 import com.qpg.superhttp.mode.ApiHost;
 import com.qpg.superhttp.mode.CacheMode;
 import com.qpg.superhttp.mode.CacheResult;

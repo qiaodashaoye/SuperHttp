@@ -1,7 +1,7 @@
 package com.qpg.superhttp.strategy;
 
 
-import com.qpg.superhttp.common.GsonUtil;
+import com.qpg.superhttp.utils.GsonUtil;
 import com.qpg.superhttp.core.ApiCache;
 import com.qpg.superhttp.mode.CacheResult;
 

@@ -1,6 +1,6 @@
 package com.qpg.superhttp.mode;
 
-import com.qpg.superhttp.common.SuperConfig;
+import com.qpg.superhttp.config.SuperConfig;
 
 /**
  * @Description: 主机信息

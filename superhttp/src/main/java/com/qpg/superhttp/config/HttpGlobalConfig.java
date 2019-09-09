@@ -1,7 +1,6 @@
 package com.qpg.superhttp.config;
 
 import com.qpg.superhttp.SuperHttp;
-import com.qpg.superhttp.common.SuperConfig;
 import com.qpg.superhttp.cookie.CookieJarImpl;
 import com.qpg.superhttp.interceptor.GzipRequestInterceptor;
 import com.qpg.superhttp.interceptor.OfflineCacheInterceptor;

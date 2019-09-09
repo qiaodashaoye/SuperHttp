@@ -3,7 +3,7 @@ package com.qpg.superhttp.request;
 import com.qpg.superhttp.utils.HttpsUtils;
 import com.qpg.superhttp.SuperHttp;
 import com.qpg.superhttp.callback.UCallback;
-import com.qpg.superhttp.common.SuperConfig;
+import com.qpg.superhttp.config.SuperConfig;
 import com.qpg.superhttp.config.HttpGlobalConfig;
 import com.qpg.superhttp.cookie.CookieJarImpl;
 import com.qpg.superhttp.cookie.store.SPCookieStore;

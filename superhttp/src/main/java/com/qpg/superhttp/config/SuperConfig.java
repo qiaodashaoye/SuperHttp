@@ -1,4 +1,4 @@
-package com.qpg.superhttp.common;
+package com.qpg.superhttp.config;
 
 /**
  * @Description: 全局常量配置

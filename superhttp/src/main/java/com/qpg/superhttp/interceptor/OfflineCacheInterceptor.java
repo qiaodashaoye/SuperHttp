@@ -4,7 +4,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.qpg.superhttp.utils.CommonUtil;
-import com.qpg.superhttp.common.SuperConfig;
+import com.qpg.superhttp.config.SuperConfig;
 
 import java.io.IOException;
 

@@ -2,7 +2,7 @@ package com.qpg.superhttp.netexpand.func;
 
 import android.text.TextUtils;
 
-import com.qpg.superhttp.common.GsonUtil;
+import com.qpg.superhttp.utils.GsonUtil;
 import com.qpg.superhttp.netexpand.mode.ApiResult;
 import com.qpg.superhttp.netexpand.mode.ResponseCode;
 import org.json.JSONException;
