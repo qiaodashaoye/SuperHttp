@@ -96,11 +96,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         });
                 break;
             case R.id.btn_post1:
-                SuperHttp.post("user/login")
-                        .addParam("userid","4556")
-                        .request(new ProgressDialogCallBack<String>(mProgressDialog,"用户信息获取失败，请刷新重试") {
+                SuperHttp.post("thirdparty/qqevaluate")
+                        .baseUrl("http://www.hg3-app.com/")
+                        .addParam("qq","112413")
+                        .request(new SimpleCallBack<UserBean>() {
                             @Override
-                            public void onSuccess(String data) {
+                            public void onStart() {
+                                super.onStart();
+                            }
+
+                            @Override
+                            public void onCompleted() {
+                                super.onCompleted();
+                            }
+
+                            @Override
+                            public void onSuccess(UserBean data) {
+
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
 
                             }
                         });
@@ -228,61 +244,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         SuperHttp.init(this.getApplication());
         SuperHttp.config()
-                //配置请求主机地址
-                .setBaseUrl("http://www.baidu.com")
-                //配置全局请求头
-                .globalHeaders(new HashMap<String, String>())
-                //配置全局请求参数
-                .globalParams(new HashMap<String, String>())
-                //配置读取超时时间，单位秒
-                .setReadTimeout(30)
-                //配置写入超时时间，单位秒
-                .setWriteTimeout(30)
-                //配置连接超时时间，单位秒
-                .setConnectTimeout(30)
-                //配置请求失败重试次数
-                .setRetryCount(3)
-                //配置请求失败重试间隔时间，单位毫秒
-                .setRetryDelayMillis(1000)
-                //配置是否使用cookie
-                .isUseCookie(true)
-                //配置自定义cookie
-                .setCookie(new CookieJarImpl(new SPCookieStore(this)))
-        //配置是否使用OkHttp的默认缓存
-//        .setHttpCache(true)
-        //配置OkHttp缓存路径
- //       .setHttpCacheDirectory(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR))
-        //配置自定义OkHttp缓存
-//        .httpCache(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
-        //配置自定义离线缓存
-//        .cacheOffline(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
-        //配置自定义在线缓存
-//        .cacheOnline(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
-        //配置开启Gzip请求方式，需要服务器支持
-        .postGzipInterceptor()
-        //配置应用级拦截器
-        .setInterceptor(new HttpLogInterceptor().setLevel(HttpLogInterceptor.Level.BODY))
-        //配置网络拦截器
-        .networkInterceptor(new NoCacheInterceptor())
-        //配置转换工厂
-        .setConverterFactory(GsonConverterFactory.create())
-        //配置适配器工厂
-        .callAdapterFactory(RxJava2CallAdapterFactory.create())
-        //配置请求工厂
-        .setCallFactory(new Call.Factory() {
-            @Override
-            public Call newCall(Request request) {
-                return null;
-            }
-        })
-        //配置连接池
-       .connectionPool(new ConnectionPool())
-        //配置主机证书验证
-        .hostnameVerifier(HttpsUtils.UnSafeHostnameVerifier)
-        //配置SSL证书验证
-        .setSSLSocketFactory(HttpsUtils.getSslSocketFactory().sSLSocketFactory);
-        //配置主机代理
-//        .setProxy(new Proxy(Proxy.Type.HTTP, new SocketAddress() {}));
+                .setInterceptor(loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY));
+            //    .setInterceptor(new HttpLogInterceptor().setLevel(HttpLogInterceptor.Level.BODY));
 
     }
 

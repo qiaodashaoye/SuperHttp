@@ -123,16 +123,16 @@ public class HttpLogInterceptor implements Interceptor {
                     log("\t" + headers.name(i) + ": " + headers.value(i));
                 }
                 log(" ");
-                if (logBody && HttpHeaders.hasVaryAll(clone)) {
-                    if (responseBody != null && isPlaintext(responseBody.contentType())) {
-                        String body = responseBody.string();
-                        log("\tbody:" + body);
-                        responseBody = ResponseBody.create(responseBody.contentType(), body);
-                        return response.newBuilder().body(responseBody).build();
-                    } else {
-                        log("\tbody: maybe [file part] , too large too print , ignored!");
-                    }
-                }
+//                if (logBody && HttpHeaders.hasVaryAll(clone)) {
+//                    if (responseBody != null && isPlaintext(responseBody.contentType())) {
+//                        String body = responseBody.string();
+//                        log("\tbody:" + body);
+//                        responseBody = ResponseBody.create(responseBody.contentType(), body);
+//                        return response.newBuilder().body(responseBody).build();
+//                    } else {
+//                        log("\tbody: maybe [file part] , too large too print , ignored!");
+//                    }
+//                }
             }
         } catch (Exception e) {
 
