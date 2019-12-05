@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //     progressDialog.incrementProgressBy(5);
         progressDialog.show();
         SuperHttp.download("home/zjbapp/profile/2019-12-03/237349310374eb0c4e56795cfa20b37a.apk")
-                .baseUrl("https://sczjbdsptest.oss-cn-shanghai.aliyuncs.com/")
+                .baseUrl("https://www.baidu.com/")
                 .tag(123)
                 .setFileName("app.apk")
                 //     .addParam("filename","app.apk")
