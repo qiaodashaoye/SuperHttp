@@ -1,6 +1,6 @@
 package com.qpg.superhttp.netexpand.request;
 
-import com.qpg.superhttp.func.ApiRetryFunc;
+import com.qpg.superhttp.transformer.ApiRetryFunc;
 import com.qpg.superhttp.netexpand.func.ApiDataFunc;
 import com.qpg.superhttp.netexpand.mode.ApiResult;
 import com.qpg.superhttp.request.BaseHttpRequest;

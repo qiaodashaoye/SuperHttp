@@ -1,4 +1,4 @@
-package com.qpg.superhttp.body;
+package com.qpg.superhttp.upload;
 
 import androidx.annotation.NonNull;
 import com.qpg.superhttp.callback.UCallback;

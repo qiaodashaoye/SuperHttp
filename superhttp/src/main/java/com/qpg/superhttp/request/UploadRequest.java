@@ -2,7 +2,7 @@ package com.qpg.superhttp.request;
 
 import androidx.annotation.NonNull;
 
-import com.qpg.superhttp.body.UploadProgressRequestBody;
+import com.qpg.superhttp.upload.UploadProgressRequestBody;
 import com.qpg.superhttp.callback.BaseCallback;
 import com.qpg.superhttp.callback.UCallback;
 import com.qpg.superhttp.core.ApiManager;

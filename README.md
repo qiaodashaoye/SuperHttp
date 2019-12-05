@@ -4,8 +4,15 @@
 
 - 项目地址：[https://github.com/qiaodashaoye/SuperHttp.git](https://github.com/qiaodashaoye/SuperHttp.git)
 
-- 项目依赖：`implementation 'com.qpg.net:superhttp:1.0.3'`
+- 项目依赖：`implementation 'com.qpg.net:superhttp:1.1.0'`
 
+
+该库借鉴了以下项目,非常感谢以下作者，我不是大神，我只是个菜鸟，
+但我想站在巨人的肩膀上成为巨人，再次感谢三位巨人。
+ * [https://github.com/xiaoyaoyou1212/XSnow](https://github.com/xiaoyaoyou1212/XSnow)
+ * [https://github.com/jeasonlzy/okhttp-OkGo](https://github.com/jeasonlzy/okhttp-OkGo) 
+ * [https://github.com/zhou-you/RxEasyHttp](https://github.com/zhou-you/RxEasyHttp) 
+ 
 #### 眼前一亮的地方
 
 - 链式调用，代码可读性高
@@ -25,6 +32,26 @@ SuperHttp.config()
 ```
 > 详细初始化,自定义配置
 ```
+
+    //动态头部拦截器，可以用于添加token类似这种动态的头部,当然，也可以放普通请求头数据
+    HeadersInterceptorDynamic headersInterceptor=new HeadersInterceptorDynamic(new HeadersInterceptorDynamic.Headers() {
+            @Override
+            public Map<String, String> headers() {
+
+                HashMap<String,String> headers=new HashMap<>();
+                headers.put("token","从本地缓存中获取的token值");
+                return headers;
+            }
+        });
+        
+        //普通请求头拦截器
+         Map<String, String> headers=new HashMap<>();
+        headers.put("version","2.0");
+        headers.put("systemType","android");
+        HeadersInterceptorNormal headersInterceptorNormal=new HeadersInterceptorNormal(headers);
+        
+ HttpLogInterceptor httpLogInterceptor=new HttpLogInterceptor("-------->");
+        httpLogInterceptor.setLevel(HttpLogInterceptor.Level.BODY);
   SuperHttp.init(this);
   SuperHttp.config()
           //配置请求主机地址
@@ -52,15 +79,15 @@ SuperHttp.config()
           //配置OkHttp缓存路径
 //        .setHttpCacheDirectory(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR))
           //配置自定义OkHttp缓存
-//        .httpCache(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
+//        .httpCache(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), SuperConfig.CACHE_MAX_SIZE))
           //配置自定义离线缓存
-//        .cacheOffline(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
+//        .cacheOffline(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), SuperConfig.CACHE_MAX_SIZE))
           //配置自定义在线缓存
-//        .cacheOnline(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), ViseConfig.CACHE_MAX_SIZE))
+//        .cacheOnline(new Cache(new File(SuperHttp.getContext().getCacheDir(), SuperConfig.CACHE_HTTP_DIR), SuperConfig.CACHE_MAX_SIZE))
           //配置开启Gzip请求方式，需要服务器支持
 //        .postGzipInterceptor()
           //配置应用级拦截器
-//        .setInterceptor(new HttpLogInterceptor().setLevel(HttpLogInterceptor.Level.BODY))
+//        .addInterceptor(httpLogInterceptor)
           //配置网络拦截器
 //        .networkInterceptor(new NoCacheInterceptor())
           //配置转换工厂
@@ -205,20 +232,28 @@ SuperHttp.config()
 
 #### 下载
 ```
-   SuperHttp.download("app.apk")
-                   .baseUrl("http://111.11.11.1/")
-                   .setFileName("dasd")
-                   .request(new SimpleCallBack<DownProgress>() {
-                       @Override
-                       public void onSuccess(DownProgress downProgress) {
-                       }
+ SuperHttp.download("profile/2019-12-03/237349310374eb0c4e56795cfa20b37a.apk")
+                .baseUrl("http://www.baidu.com/")
+                .setFileName("app.apk")
+              //.addParam("filename","app.apk")
+                .request(new SimpleCallBack<DownProgress>() {
+                    @Override
+                    public void onCompleted() {
+                        super.onCompleted();
+                        progressDialog.dismiss();
 
-                       @Override
-                       public void onFail(int errCode, String errMsg) {
-                       }
-                   });
+                    }
 
-           break;
+                    @Override
+                    public void onSuccess(DownProgress downProgress) {
+                        System.out.println("1-------->"+downProgress);
+
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+                    }
+                });
 ```
 #### 自定义加载框
 ```
@@ -260,6 +295,11 @@ SuperHttp.config()
 -keep class okio.** { *; }
 -dontwarn okhttp3.**
 -keep class okhttp3.** { *; }
+
+#okio
+-dontwarn okio.**
+-keep class okio.**{*;}
+-keep interface okio.**{*;}
 
 #retrofit
 -dontwarn retrofit2.**

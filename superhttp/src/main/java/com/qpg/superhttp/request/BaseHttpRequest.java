@@ -1,21 +1,18 @@
 package com.qpg.superhttp.request;
 
 import android.text.TextUtils;
-
 import com.qpg.superhttp.SuperHttp;
 import com.qpg.superhttp.api.ApiService;
 import com.qpg.superhttp.callback.BaseCallback;
 import com.qpg.superhttp.config.SuperConfig;
-import com.qpg.superhttp.func.ApiFunc;
-import com.qpg.superhttp.func.ApiRetryFunc;
+import com.qpg.superhttp.transformer.ApiFunc;
+import com.qpg.superhttp.transformer.ApiRetryFunc;
 import com.qpg.superhttp.mode.ApiHost;
 import com.qpg.superhttp.mode.CacheMode;
 import com.qpg.superhttp.mode.CacheResult;
-
 import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;

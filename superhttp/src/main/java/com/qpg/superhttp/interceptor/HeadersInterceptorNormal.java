@@ -13,11 +13,11 @@ import okhttp3.Response;
 /**
  * @Description: 请求头拦截
  */
-public class HeadersInterceptor implements Interceptor {
+public class HeadersInterceptorNormal implements Interceptor {
 
     private Map<String, String> headers;
 
-    public HeadersInterceptor(Map<String, String> headers) {
+    public HeadersInterceptorNormal(Map<String, String> headers) {
         this.headers = headers;
     }
 

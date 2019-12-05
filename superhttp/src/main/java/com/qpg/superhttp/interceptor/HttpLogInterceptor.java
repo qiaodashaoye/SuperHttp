@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import okhttp3.Connection;
 import okhttp3.Headers;
@@ -24,7 +25,11 @@ import okio.Buffer;
  */
 public class HttpLogInterceptor implements Interceptor {
     private static final Charset UTF8 = Charset.forName("UTF-8");
+
     private volatile Level level = Level.NONE;
+    private Logger logger;
+    private String tag;
+    private boolean isLogEnable = false;
 
     public enum Level {
         NONE,       //不打印log
@@ -33,14 +38,23 @@ public class HttpLogInterceptor implements Interceptor {
         BODY        //所有数据全部打印
     }
 
-    private void log(String message) {
+    public void log(String message) {
+        logger.log(java.util.logging.Level.INFO, message);
+    }
 
+    public HttpLogInterceptor(String tag) {
+        this.tag = tag;
+        logger = Logger.getLogger(tag);
+    }
+
+    public HttpLogInterceptor(String tag, boolean isLogEnable) {
+        this.tag = tag;
+        this.isLogEnable = isLogEnable;
+        logger = Logger.getLogger(tag);
     }
 
     public HttpLogInterceptor setLevel(Level level) {
-        if (level == null) {
-            throw new NullPointerException("level == null. Use Level.NONE instead.");
-        }
+        if (level == null) throw new NullPointerException("level == null. Use Level.NONE instead.");
         this.level = level;
         return this;
     }
@@ -50,7 +64,7 @@ public class HttpLogInterceptor implements Interceptor {
     }
 
     @Override
-    public Response intercept(@NonNull Chain chain) throws IOException {
+    public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         if (level == Level.NONE) {
             return chain.proceed(request);
@@ -65,16 +79,19 @@ public class HttpLogInterceptor implements Interceptor {
         try {
             response = chain.proceed(request);
         } catch (Exception e) {
-
+            log("<-- HTTP FAILED: " + e);
             throw e;
         }
         long tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs);
+
+        //Logc.e(tag, "+++++++++++++++++++++++++++end+++++++++++耗时:" + tookMs + "毫秒");
 
         //响应日志拦截
         return logForResponse(response, tookMs);
     }
 
     private void logForRequest(Request request, Connection connection) throws IOException {
+        log("-------------------------------request-------------------------------");
         boolean logBody = (level == Level.BODY);
         boolean logHeaders = (level == Level.BODY || level == Level.HEADERS);
         RequestBody requestBody = request.body();
@@ -82,7 +99,7 @@ public class HttpLogInterceptor implements Interceptor {
         Protocol protocol = connection != null ? connection.protocol() : Protocol.HTTP_1_1;
 
         try {
-            String requestStartMessage = "--> " + request.method() + ' ' + request.url() + ' ' + protocol;
+            String requestStartMessage = "--> " + request.method() + ' ' + URLDecoder.decode(request.url().url().toString(),UTF8.name()) + ' ' + protocol;
             log(requestStartMessage);
 
             if (logHeaders) {
@@ -91,10 +108,9 @@ public class HttpLogInterceptor implements Interceptor {
                     log("\t" + headers.name(i) + ": " + headers.value(i));
                 }
 
-                log(" ");
+                //log(" ");
                 if (logBody && hasRequestBody) {
                     if (isPlaintext(requestBody.contentType())) {
-                        log("\t"+requestBody.contentType());
                         bodyToString(request);
                     } else {
                         log("\tbody: maybe [file part] , too large too print , ignored!");
@@ -102,13 +118,14 @@ public class HttpLogInterceptor implements Interceptor {
                 }
             }
         } catch (Exception e) {
-
+            e(e);
         } finally {
             log("--> END " + request.method());
         }
     }
 
     private Response logForResponse(Response response, long tookMs) {
+        log("-------------------------------response-------------------------------");
         Response.Builder builder = response.newBuilder();
         Response clone = builder.build();
         ResponseBody responseBody = clone.body();
@@ -116,26 +133,28 @@ public class HttpLogInterceptor implements Interceptor {
         boolean logHeaders = (level == Level.BODY || level == Level.HEADERS);
 
         try {
-            log("<-- " + clone.code() + ' ' + clone.message() + ' ' + clone.request().url() + " (" + tookMs + "ms）");
+            log("<-- " + clone.code() + ' ' + clone.message() + ' ' +URLDecoder.decode(clone.request().url().url().toString(),UTF8.name()) + " (" + tookMs + "ms）");
             if (logHeaders) {
+                log(" ");
                 Headers headers = clone.headers();
                 for (int i = 0, count = headers.size(); i < count; i++) {
                     log("\t" + headers.name(i) + ": " + headers.value(i));
                 }
                 log(" ");
-//                if (logBody && HttpHeaders.hasVaryAll(clone)) {
-//                    if (responseBody != null && isPlaintext(responseBody.contentType())) {
-//                        String body = responseBody.string();
-//                        log("\tbody:" + body);
-//                        responseBody = ResponseBody.create(responseBody.contentType(), body);
-//                        return response.newBuilder().body(responseBody).build();
-//                    } else {
-//                        log("\tbody: maybe [file part] , too large too print , ignored!");
-//                    }
-//                }
+                if (logBody && HttpHeaders.hasBody(clone)) {
+                    if (isPlaintext(responseBody.contentType())) {
+                        String body = responseBody.string();
+                        log("\tbody:" + body);
+                        responseBody = ResponseBody.create(responseBody.contentType(), body);
+                        return response.newBuilder().body(responseBody).build();
+                    } else {
+                        log("\tbody: maybe [file part] , too large too print , ignored!");
+                    }
+                }
+                log(" ");
             }
         } catch (Exception e) {
-
+            e(e);
         } finally {
             log("<-- END HTTP");
         }
@@ -146,7 +165,8 @@ public class HttpLogInterceptor implements Interceptor {
      * Returns true if the body in question probably contains human readable text. Uses a small sample
      * of code points to detect unicode control characters commonly used in binary file signatures.
      */
-    private boolean isPlaintext(MediaType mediaType) {
+    static boolean isPlaintext(MediaType mediaType) {
+        if (mediaType == null) return false;
         if (mediaType.type() != null && mediaType.type().equals("text")) {
             return true;
         }
@@ -156,7 +176,7 @@ public class HttpLogInterceptor implements Interceptor {
             if (subtype.contains("x-www-form-urlencoded") ||
                     subtype.contains("json") ||
                     subtype.contains("xml") ||
-                    subtype.contains("html"))
+                    subtype.contains("html")) //
                 return true;
         }
         return false;
@@ -166,20 +186,32 @@ public class HttpLogInterceptor implements Interceptor {
         try {
             final Request copy = request.newBuilder().build();
             final Buffer buffer = new Buffer();
-            RequestBody requestBody = copy.body();
-            if (requestBody != null) {
-                requestBody.writeTo(buffer);
-                Charset charset = UTF8;
-                MediaType contentType = requestBody.contentType();
-                if (contentType != null) {
-                    charset = contentType.charset(UTF8);
-                }
-                if (charset != null) {
-                    log("\tbody:" + URLDecoder.decode(buffer.readString(charset), UTF8.name()));
-                }
+            copy.body().writeTo(buffer);
+            Charset charset = UTF8;
+            MediaType contentType = copy.body().contentType();
+            if (contentType != null) {
+                charset = contentType.charset(UTF8);
             }
+            String result = buffer.readString(charset);
+            log("\tbody:" + URLDecoder.decode(replacer(result),UTF8.name()));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private String replacer(String content) {
+        String data = content;
+        try {
+            data = data.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
+            data = data.replaceAll("\\+", "%2B");
+            data = URLDecoder.decode(data, "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public void e(java.lang.Throwable t) {
+        if (isLogEnable) t.printStackTrace();
     }
 }

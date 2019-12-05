@@ -1,7 +1,7 @@
 package com.qpg.superhttp.core;
 
 import com.qpg.superhttp.config.HttpGlobalConfig;
-import com.qpg.superhttp.func.ApiRetryFunc;
+import com.qpg.superhttp.transformer.ApiRetryFunc;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;

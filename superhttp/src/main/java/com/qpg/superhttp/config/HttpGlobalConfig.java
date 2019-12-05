@@ -366,7 +366,7 @@ public class HttpGlobalConfig {
      * @param interceptor
      * @return
      */
-    public HttpGlobalConfig setInterceptor(Interceptor interceptor) {
+    public HttpGlobalConfig addInterceptor(Interceptor interceptor) {
         SuperHttp.getOkHttpBuilder().addInterceptor(checkNotNull(interceptor, "interceptor == null"));
         return this;
     }
@@ -388,7 +388,7 @@ public class HttpGlobalConfig {
      * @return
      */
     public HttpGlobalConfig postGzipInterceptor() {
-        setInterceptor(new GzipRequestInterceptor());
+        addInterceptor(new GzipRequestInterceptor());
         return this;
     }
 
@@ -425,7 +425,7 @@ public class HttpGlobalConfig {
      */
     public HttpGlobalConfig cacheOffline(Cache httpCache) {
         networkInterceptor(new OfflineCacheInterceptor(SuperHttp.getContext()));
-        setInterceptor(new OfflineCacheInterceptor(SuperHttp.getContext()));
+        addInterceptor(new OfflineCacheInterceptor(SuperHttp.getContext()));
         this.httpCache = httpCache;
         return this;
     }
@@ -439,7 +439,7 @@ public class HttpGlobalConfig {
      */
     public HttpGlobalConfig cacheOffline(Cache httpCache, final int cacheControlValue) {
         networkInterceptor(new OfflineCacheInterceptor(SuperHttp.getContext(), cacheControlValue));
-        setInterceptor(new OfflineCacheInterceptor(SuperHttp.getContext(), cacheControlValue));
+        addInterceptor(new OfflineCacheInterceptor(SuperHttp.getContext(), cacheControlValue));
         this.httpCache = httpCache;
         return this;
     }

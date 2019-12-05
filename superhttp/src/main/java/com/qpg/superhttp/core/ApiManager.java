@@ -27,7 +27,9 @@ public class ApiManager {
     private ApiManager() {
         arrayMaps = new HashMap<>();
     }
-
+    public HashMap getTagMap(){
+        return arrayMaps;
+    }
     public void add(Object tag, Disposable disposable) {
         arrayMaps.put(tag, disposable);
     }

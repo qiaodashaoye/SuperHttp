@@ -19,6 +19,8 @@ import com.qpg.superhttp.request.PutRequest;
 import com.qpg.superhttp.request.RetrofitRequest;
 import com.qpg.superhttp.request.UploadRequest;
 
+import java.util.HashMap;
+
 import io.reactivex.disposables.Disposable;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -237,6 +239,12 @@ public class SuperHttp {
     }
 
     /**
+     * 获取ApiManager
+     */
+    public static ApiManager getApiManager() {
+      return  ApiManager.get();
+    }
+    /**
      * 添加请求订阅者
      * @param tag
      * @param disposable
@@ -245,6 +253,12 @@ public class SuperHttp {
         ApiManager.get().add(tag, disposable);
     }
 
+    /**
+     * 获取TagMap
+     */
+    public static HashMap getTagMap() {
+       return ApiManager.get().getTagMap();
+    }
     /**
      * 根据Tag取消请求
      */

@@ -7,7 +7,7 @@ import com.qpg.superhttp.config.SuperConfig;
 import com.qpg.superhttp.config.HttpGlobalConfig;
 import com.qpg.superhttp.cookie.CookieJarImpl;
 import com.qpg.superhttp.cookie.store.SPCookieStore;
-import com.qpg.superhttp.interceptor.HeadersInterceptor;
+import com.qpg.superhttp.interceptor.HeadersInterceptorNormal;
 import com.qpg.superhttp.interceptor.UploadProgressInterceptor;
 import com.qpg.superhttp.mode.ApiHost;
 import com.qpg.superhttp.mode.HttpHeaders;
@@ -26,6 +26,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @Description: 请求基类
@@ -232,7 +233,7 @@ public abstract class BaseRequest<R extends BaseRequest> {
         }
 
         if (headers.headersMap.size() > 0) {
-            newBuilder.addInterceptor(new HeadersInterceptor(headers.headersMap));
+            newBuilder.addInterceptor(new HeadersInterceptorNormal(headers.headersMap));
         }
 
         if (uploadCallback != null) {
@@ -244,11 +245,11 @@ public abstract class BaseRequest<R extends BaseRequest> {
         }
 
         if (writeTimeOut > 0) {
-            newBuilder.readTimeout(writeTimeOut, TimeUnit.SECONDS);
+            newBuilder.writeTimeout(writeTimeOut, TimeUnit.SECONDS);
         }
 
         if (connectTimeOut > 0) {
-            newBuilder.readTimeout(connectTimeOut, TimeUnit.SECONDS);
+            newBuilder.connectTimeout(connectTimeOut, TimeUnit.SECONDS);
         }
 
         if (isHttpCache) {
@@ -276,7 +277,7 @@ public abstract class BaseRequest<R extends BaseRequest> {
             if (httpGlobalConfig.getCallFactory() != null) {
                 newRetrofitBuilder.callFactory(httpGlobalConfig.getCallFactory());
             }
-            newBuilder.hostnameVerifier(HttpsUtils.UnSafeHostnameVerifier);
+         //   newBuilder.hostnameVerifier(HttpsUtils.UnSafeHostnameVerifier);
             newRetrofitBuilder.client(newBuilder.build());
             retrofit = newRetrofitBuilder.build();
         } else {
@@ -296,9 +297,10 @@ public abstract class BaseRequest<R extends BaseRequest> {
         }
         SuperHttp.getRetrofitBuilder().baseUrl(httpGlobalConfig.getBaseUrl());
 
-        if (httpGlobalConfig.getConverterFactory() != null) {
-            SuperHttp.getRetrofitBuilder().addConverterFactory(httpGlobalConfig.getConverterFactory());
+        if (httpGlobalConfig.getConverterFactory() == null) {
+            httpGlobalConfig.setConverterFactory(GsonConverterFactory.create());
         }
+        SuperHttp.getRetrofitBuilder().addConverterFactory(httpGlobalConfig.getConverterFactory());
 
         if (httpGlobalConfig.getCallAdapterFactory() == null) {
             httpGlobalConfig.callAdapterFactory(RxJava2CallAdapterFactory.create());

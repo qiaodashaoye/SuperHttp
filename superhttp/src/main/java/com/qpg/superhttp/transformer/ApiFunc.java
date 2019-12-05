@@ -1,10 +1,8 @@
-package com.qpg.superhttp.func;
+package com.qpg.superhttp.transformer;
 
 import com.google.gson.Gson;
-
 import java.io.IOException;
 import java.lang.reflect.Type;
-
 import io.reactivex.functions.Function;
 import okhttp3.ResponseBody;
 
