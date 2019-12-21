@@ -4,19 +4,13 @@
 
 - 项目地址：[https://github.com/qiaodashaoye/SuperHttp.git](https://github.com/qiaodashaoye/SuperHttp.git)
 
-- 项目依赖：`implementation 'com.qpg.net:superhttp:1.1.0'`
+- 项目依赖：`implementation 'com.qpg.net:superhttp:1.1.1'`
 
-
-该库借鉴了以下项目,非常感谢以下作者，我不是大神，我只是个菜鸟，
-但我想站在巨人的肩膀上成为巨人，再次感谢三位巨人。
- * [https://github.com/xiaoyaoyou1212/XSnow](https://github.com/xiaoyaoyou1212/XSnow)
- * [https://github.com/jeasonlzy/okhttp-OkGo](https://github.com/jeasonlzy/okhttp-OkGo) 
- * [https://github.com/zhou-you/RxEasyHttp](https://github.com/zhou-you/RxEasyHttp) 
- 
 #### 眼前一亮的地方
 
 - 链式调用，代码可读性高
 - 动态切换请求基地址，人性化使用
+- 生命周期感知能力，跟内存泄漏说拜拜
 - 自定义数据解析器，解决不同项目返回数据格式不同的问题
 
 ### 调用实例：
@@ -118,6 +112,7 @@ SuperHttp.config()
 使用方法请看实例。
 ```
  SuperHttp.get("user/getUserInfo")
+                        .lifeCycleOwner(this) //绑定生命周期拥有者，方便在界面销毁时自动取消网络请求，也可通过tag属性，手动取消。
                         .addParam("userid","4556")
                         .request(new ProgressDialogCallBack<String>(mProgressDialog,"用户信息获取失败，请刷新重试") {
                             @Override
@@ -280,6 +275,27 @@ SuperHttp.config()
          }
      };
 ```
+
+#### 内部错误码定义说明
+```
+        //未知错误
+        public static final int UNKNOWN = 1000;
+        //解析错误
+        public static final int PARSE_ERROR = 1001;
+        //网络错误
+        public static final int NETWORK_ERROR = 1002;
+        //协议出错
+        public static final int HTTP_ERROR = 1003;
+        //证书出错
+        public static final int SSL_ERROR = 1005;
+        //连接超时
+        public static final int TIMEOUT_ERROR = 1006;
+        //调用错误
+        public static final int INVOKE_ERROR = 1007;
+        //类转换错误
+        public static final int CONVERT_ERROR = 1008;
+```
+
 ## 混淆
 ``` java
 #gson

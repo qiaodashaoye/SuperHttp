@@ -2,6 +2,7 @@ package com.qpg.superhttp.request;
 
 import androidx.annotation.NonNull;
 
+import com.qpg.superhttp.lifecycle.BaseLifeCycleObserver;
 import com.qpg.superhttp.upload.UploadProgressRequestBody;
 import com.qpg.superhttp.callback.BaseCallback;
 import com.qpg.superhttp.callback.UCallback;
@@ -75,6 +76,21 @@ public class UploadRequest extends BaseHttpRequest<UploadRequest> {
         if (super.tag != null) {
             ApiManager.get().add(super.tag, disposableObserver);
         }
+
+        if (super.mActivity != null) {
+            if(!ApiManager.get().isContainTag(super.mActivity.getClass().getName())){
+                super.mActivity.getLifecycle().addObserver(new BaseLifeCycleObserver(super.mActivity.getLifecycle(),super.mActivity));
+            }
+            ApiManager.get().add(super.mActivity.getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
+        }
+
+        if (super.mFragment != null) {
+            if(!ApiManager.get().isContainTag(super.mFragment .getClass().getName())){
+                super.mFragment .getLifecycle().addObserver(new BaseLifeCycleObserver(super.mFragment .getLifecycle(),mFragment));
+            }
+            ApiManager.get().add(super.mFragment .getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
+        }
+
         this.execute(getType(callback)).subscribe(disposableObserver);
     }
 

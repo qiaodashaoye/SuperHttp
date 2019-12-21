@@ -3,6 +3,8 @@ package com.qpg.superhttpdemo;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,12 +31,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button mGet1,mGet2,mPost1,mPost2,mPost3,mParsr,mUpload,mDownload,mCustomLoad;
+    private Button mGet1,mGet2,mPost1,mPost2,mPost3,mParsr,mUpload,mDownload,mCustomLoad,btnAutoCancelTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        new Test(this);
         init();
         mGet1=findViewById(R.id.btn_get1);
         mGet2=findViewById(R.id.btn_get2);
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mUpload=findViewById(R.id.btn_up);
         mDownload=findViewById(R.id.btn_download);
         mCustomLoad=findViewById(R.id.btn_custom_load);
+        btnAutoCancelTask=findViewById(R.id.btn_auto_cancel_task);
 
         mGet1.setOnClickListener(this);
         mGet2.setOnClickListener(this);
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mUpload.setOnClickListener(this);
         mDownload.setOnClickListener(this);
         mCustomLoad.setOnClickListener(this);
+        btnAutoCancelTask.setOnClickListener(this);
     }
 
 
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_get2:
                 SuperHttp.get("v2/accept/user/getUserInfo")
+                        .tag(22)
                         .addParam("userid","4556")
                         .request(new SimpleCallBack<UserBean>() {
                             @Override
@@ -196,6 +201,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             }
                         });
+                break;
+                case R.id.btn_auto_cancel_task:
+                    startActivity(new Intent(MainActivity.this,AutoCancelTaskActivity.class));
                 break;
                 default:
         }

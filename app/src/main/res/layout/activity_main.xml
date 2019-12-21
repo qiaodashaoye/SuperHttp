@@ -66,7 +66,12 @@
             android:layout_margin="8dp"
             android:text="自定义加载框"/>
 
-
+        <Button
+            android:id="@+id/btn_auto_cancel_task"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:text="自动取消正在执行的任务"/>
     </LinearLayout>
 
 </ScrollView>

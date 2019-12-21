@@ -7,7 +7,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 29
         versionCode 1
-        versionName "1.1.0"
+        versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -29,7 +29,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     api 'com.squareup.okhttp3:logging-interceptor:4.2.2'
     api 'com.squareup.okhttp3:okhttp:4.2.2'
-    api 'io.reactivex.rxjava2:rxjava:2.2.15'
+    api 'io.reactivex.rxjava2:rxjava:2.2.16'
     api 'io.reactivex.rxjava2:rxandroid:2.1.1'
     api 'com.squareup.retrofit2:retrofit:2.6.2'
     api 'com.squareup.retrofit2:converter-gson:2.6.2'

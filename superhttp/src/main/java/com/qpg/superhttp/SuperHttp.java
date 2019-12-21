@@ -20,6 +20,7 @@ import com.qpg.superhttp.request.RetrofitRequest;
 import com.qpg.superhttp.request.UploadRequest;
 
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.reactivex.disposables.Disposable;
 import okhttp3.OkHttpClient;
@@ -256,7 +257,7 @@ public class SuperHttp {
     /**
      * 获取TagMap
      */
-    public static HashMap getTagMap() {
+    public static ConcurrentHashMap getTagMap() {
        return ApiManager.get().getTagMap();
     }
     /**
@@ -265,7 +266,12 @@ public class SuperHttp {
     public static void cancelTag(Object tag) {
         ApiManager.get().cancel(tag);
     }
-
+    /**
+     * 根据Tag取消请求
+     */
+    public static void cancelSome(String subTag) {
+        ApiManager.get().cancelSome(subTag);
+    }
     /**
      * 取消所有请求请求
      */

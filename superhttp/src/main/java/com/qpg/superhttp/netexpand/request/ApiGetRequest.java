@@ -3,6 +3,7 @@ package com.qpg.superhttp.netexpand.request;
 import com.qpg.superhttp.SuperHttp;
 import com.qpg.superhttp.callback.BaseCallback;
 import com.qpg.superhttp.core.ApiManager;
+import com.qpg.superhttp.lifecycle.BaseLifeCycleObserver;
 import com.qpg.superhttp.mode.CacheResult;
 import com.qpg.superhttp.netexpand.func.ApiResultFunc;
 import com.qpg.superhttp.subscriber.ApiCallbackSubscriber;
@@ -36,6 +37,20 @@ public class ApiGetRequest extends ApiBaseRequest<ApiGetRequest> {
         DisposableObserver disposableObserver = new ApiCallbackSubscriber(callback);
         if (super.tag != null) {
             ApiManager.get().add(super.tag, disposableObserver);
+        }
+        if (super.mActivity != null) {
+            String tag=String.valueOf(mActivity.getClass().getName()+"_"+System.nanoTime());
+            if(!ApiManager.get().isContainTag(tag)){
+                mActivity.getLifecycle().addObserver(new BaseLifeCycleObserver(mActivity.getLifecycle(),mActivity));
+            }
+            ApiManager.get().add(tag, disposableObserver);
+        }
+        if (super.mFragment != null) {
+            String tag=String.valueOf(mFragment.getClass().getName()+"_"+System.nanoTime());
+            if(!ApiManager.get().isContainTag(tag)){
+                mFragment.getLifecycle().addObserver(new BaseLifeCycleObserver(mFragment.getLifecycle(),mFragment));
+            }
+            ApiManager.get().add(tag, disposableObserver);
         }
         if (isLocalCache) {
             this.cacheExecute(getSubType(callback)).subscribe(disposableObserver);

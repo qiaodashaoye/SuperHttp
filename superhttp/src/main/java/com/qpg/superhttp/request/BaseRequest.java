@@ -1,5 +1,11 @@
 package com.qpg.superhttp.request;
 
+import android.app.Activity;
+
+import androidx.activity.ComponentActivity;
+import androidx.fragment.app.Fragment;
+
+import com.qpg.superhttp.lifecycle.BaseLifeCycleObserver;
 import com.qpg.superhttp.utils.HttpsUtils;
 import com.qpg.superhttp.SuperHttp;
 import com.qpg.superhttp.callback.UCallback;
@@ -44,6 +50,9 @@ public abstract class BaseRequest<R extends BaseRequest> {
     protected long connectTimeOut;//连接超时时间
     protected boolean isHttpCache;//是否使用Http缓存
     protected UCallback uploadCallback;//上传进度回调
+
+    protected ComponentActivity mActivity;
+    protected Fragment mFragment;
 
     /**
      * 设置基础域名，当前请求会替换全局域名
@@ -104,7 +113,28 @@ public abstract class BaseRequest<R extends BaseRequest> {
         }
         return (R) this;
     }
+    /**
+     * 设置生命周期拥有者
+     *
+     * @param activity
+     * @return
+     */
+    public R lifeCycleOwner(ComponentActivity activity) {
 
+        this.mActivity = activity;
+        return (R) this;
+    }
+    /**
+     * 设置生命周期拥有者
+     *
+     * @param fragment
+     * @return
+     */
+    public R lifeCycleOwner(Fragment fragment) {
+     //   fragment.getLifecycle().addObserver(new BaseLifeCycleObserver(fragment.getLifecycle(),fragment));
+        this.mFragment = fragment;
+        return (R) this;
+    }
     /**
      * 设置请求标签
      *

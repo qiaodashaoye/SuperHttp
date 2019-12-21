@@ -8,6 +8,7 @@ import com.qpg.superhttp.SuperHttp;
 import com.qpg.superhttp.callback.BaseCallback;
 import com.qpg.superhttp.config.SuperConfig;
 import com.qpg.superhttp.core.ApiManager;
+import com.qpg.superhttp.lifecycle.BaseLifeCycleObserver;
 import com.qpg.superhttp.transformer.ApiRetryFunc;
 import com.qpg.superhttp.mode.CacheResult;
 import com.qpg.superhttp.subscriber.DownCallbackSubscriber;
@@ -117,6 +118,21 @@ public class DownloadRequest extends BaseHttpRequest<DownloadRequest> {
         if (super.tag != null) {
             ApiManager.get().add(super.tag, disposableObserver);
         }
+
+        if (super.mActivity != null) {
+            if(!ApiManager.get().isContainTag(super.mActivity.getClass().getName())){
+                super.mActivity.getLifecycle().addObserver(new BaseLifeCycleObserver(super.mActivity.getLifecycle(),super.mActivity));
+            }
+            ApiManager.get().add(super.mActivity.getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
+        }
+
+        if (super.mFragment != null) {
+            if(!ApiManager.get().isContainTag(super.mFragment .getClass().getName())){
+                super.mFragment .getLifecycle().addObserver(new BaseLifeCycleObserver(super.mFragment .getLifecycle(),mFragment));
+            }
+            ApiManager.get().add(super.mFragment .getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
+        }
+
         this.execute(getType(callback)).subscribe(disposableObserver);
     }
 

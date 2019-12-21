@@ -1,7 +1,7 @@
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-// ./gradlew build bintrayUpload -PbintrayUser=q-p-g -PbintrayKey=XXXX -PdryRun=false
-//gradlew bintrayUpload -PbintrayUser=q-p-p -PbintrayKey=XXX -PdryRun=false
+// ./gradlew build bintrayUpload -PbintrayUser=q-p-g -PbintrayKey=f66f6ed4c5aec926f236eae5b0325731024997c2 -PdryRun=false
+//gradlew bintrayUpload -PbintrayUser=q-p-p -PbintrayKey=f66f6ed4c5aec926f236eae5b0325731024997c2 -PdryRun=false
 version = android.defaultConfig.versionName
 group = GROUP
 
