@@ -19,7 +19,7 @@ public class AutoCancelTaskActivity extends AppCompatActivity {
                 .setWriteTimeOut(5)
                 .setConnectTimeOut(5)
                 .lifeCycleOwner(this)
-                .baseUrl("http://192.168.1.150:5830/")
+                .baseUrl("http://192.168.1.79:5830/")
                 .request(new SimpleCallBack<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -38,7 +38,7 @@ public class AutoCancelTaskActivity extends AppCompatActivity {
                 .setWriteTimeOut(5)
                 .setConnectTimeOut(5)
                 .lifeCycleOwner(this)
-                .baseUrl("http://192.168.1.150:5830/")
+                .baseUrl("http://192.168.1.79:5830/")
                 .request(new SimpleCallBack<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -52,12 +52,8 @@ public class AutoCancelTaskActivity extends AppCompatActivity {
                     }
                 });
         SuperHttp.get("getUserInfo")
-                .setRetryCount(0)
-                .setReadTimeOut(5)
-                .setWriteTimeOut(5)
-                .setConnectTimeOut(5)
                 .lifeCycleOwner(this)
-                .baseUrl("http://192.168.1.150:5830/")
+                .baseUrl("http://192.168.1.79:5830/")
                 .request(new SimpleCallBack<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -76,7 +72,7 @@ public class AutoCancelTaskActivity extends AppCompatActivity {
                 .setWriteTimeOut(5)
                 .setConnectTimeOut(5)
                 .lifeCycleOwner(this)
-                .baseUrl("http://192.168.1.150:5830/")
+                .baseUrl("http://192.168.1.79:5830/")
                 .request(new SimpleCallBack<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -95,7 +91,7 @@ public class AutoCancelTaskActivity extends AppCompatActivity {
                 .setWriteTimeOut(5)
                 .setConnectTimeOut(5)
                 .lifeCycleOwner(this)
-                .baseUrl("http://192.168.1.150:5830/")
+                .baseUrl("http://192.168.1.79:5830/")
                 .request(new SimpleCallBack<String>() {
                     @Override
                     public void onSuccess(String data) {
