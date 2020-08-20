@@ -38,17 +38,17 @@ public class PutRequest extends BaseHttpRequest<PutRequest> {
         }
 
         if (super.mActivity != null) {
-            if(!ApiManager.get().isContainTag(super.mActivity.getClass().getName())){
-                super.mActivity.getLifecycle().addObserver(new BaseLifeCycleObserver(super.mActivity.getLifecycle(),super.mActivity));
+            if (!ApiManager.get().isContainTag(super.mActivity.getClass().getName())) {
+                super.mActivity.getLifecycle().addObserver(new BaseLifeCycleObserver(super.mActivity.getLifecycle(), super.mActivity));
             }
-            ApiManager.get().add(super.mActivity.getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
+            ApiManager.get().add(super.mActivity.getClass().getName() + "_" + disposableObserver.hashCode(), disposableObserver);
         }
 
         if (super.mFragment != null) {
-            if(!ApiManager.get().isContainTag(super.mFragment .getClass().getName())){
-                super.mFragment .getLifecycle().addObserver(new BaseLifeCycleObserver(super.mFragment .getLifecycle(),mFragment));
+            if (!ApiManager.get().isContainTag(super.mFragment.getClass().getName())) {
+                super.mFragment.getLifecycle().addObserver(new BaseLifeCycleObserver(super.mFragment.getLifecycle(), mFragment));
             }
-            ApiManager.get().add(super.mFragment .getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
+            ApiManager.get().add(super.mFragment.getClass().getName() + "_" + disposableObserver.hashCode(), disposableObserver);
         }
 
         if (isLocalCache) {

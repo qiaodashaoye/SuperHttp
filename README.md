@@ -106,7 +106,7 @@ SuperHttp.config()
 
 ```
 #### Get方式
-- get方式一（推荐）
+- get方式一
 此方式需要实现ProgressDialogCallBack，第一个参数是为了方便使用者传入自定义的Dialog加载框，
 第二个参数是传入回调失败后的提示信息，使用者不必手动重写onFail()方法，使用非常简单,具体
 使用方法请看实例。

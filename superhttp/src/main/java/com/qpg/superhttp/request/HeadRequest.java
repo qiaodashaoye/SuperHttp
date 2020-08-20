@@ -46,10 +46,10 @@ public class HeadRequest extends BaseHttpRequest<HeadRequest> {
         }
 
         if (super.mFragment != null) {
-            if(!ApiManager.get().isContainTag(super.mFragment .getClass().getName())){
-                super.mFragment .getLifecycle().addObserver(new BaseLifeCycleObserver(super.mFragment .getLifecycle(),mFragment));
+            if(!ApiManager.get().isContainTag(super.mFragment.getClass().getName())){
+                super.mFragment.getLifecycle().addObserver(new BaseLifeCycleObserver(super.mFragment.getLifecycle(),mFragment));
             }
-            ApiManager.get().add(super.mFragment .getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
+            ApiManager.get().add(super.mFragment.getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
         }
 
         if (isLocalCache) {

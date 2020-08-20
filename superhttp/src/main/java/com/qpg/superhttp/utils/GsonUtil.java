@@ -1,7 +1,7 @@
 package com.qpg.superhttp.utils;
 
 import com.google.gson.Gson;
-
+import com.google.gson.GsonBuilder;
 /**
  * @Description: Gson单例操作
  */
@@ -12,7 +12,7 @@ public class GsonUtil{
         if (gson == null) {
             synchronized (Gson.class) {
                 if (gson == null) {
-                    gson = new Gson();
+                    gson = (new GsonBuilder()).disableHtmlEscaping().create();
                 }
             }
         }

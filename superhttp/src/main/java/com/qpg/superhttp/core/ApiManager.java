@@ -49,6 +49,9 @@ public class ApiManager {
         if (arrayMaps.isEmpty()) {
             return;
         }
+        if (tag == null) {
+            return;
+        }
         if (arrayMaps.get(tag) == null) {
             return;
         }

@@ -127,10 +127,10 @@ public class DownloadRequest extends BaseHttpRequest<DownloadRequest> {
         }
 
         if (super.mFragment != null) {
-            if(!ApiManager.get().isContainTag(super.mFragment .getClass().getName())){
-                super.mFragment .getLifecycle().addObserver(new BaseLifeCycleObserver(super.mFragment .getLifecycle(),mFragment));
+            if(!ApiManager.get().isContainTag(super.mFragment.getClass().getName())){
+                super.mFragment.getLifecycle().addObserver(new BaseLifeCycleObserver(super.mFragment.getLifecycle(),mFragment));
             }
-            ApiManager.get().add(super.mFragment .getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
+            ApiManager.get().add(super.mFragment.getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
         }
 
         this.execute(getType(callback)).subscribe(disposableObserver);

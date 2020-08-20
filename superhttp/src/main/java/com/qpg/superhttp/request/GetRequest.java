@@ -6,7 +6,9 @@ import com.qpg.superhttp.core.ApiManager;
 import com.qpg.superhttp.lifecycle.BaseLifeCycleObserver;
 import com.qpg.superhttp.mode.CacheResult;
 import com.qpg.superhttp.subscriber.ApiCallbackSubscriber;
+
 import java.lang.reflect.Type;
+
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
 
@@ -37,17 +39,17 @@ public class GetRequest extends BaseHttpRequest<GetRequest> {
         }
 
         if (super.mActivity != null) {
-            if(!ApiManager.get().isContainTag(mActivity.getClass().getName())){
-                mActivity.getLifecycle().addObserver(new BaseLifeCycleObserver(mActivity.getLifecycle(),mActivity));
+            if (!ApiManager.get().isContainTag(mActivity.getClass().getName())) {
+                mActivity.getLifecycle().addObserver(new BaseLifeCycleObserver(mActivity.getLifecycle(), mActivity));
             }
-            ApiManager.get().add(mActivity.getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
+            ApiManager.get().add(mActivity.getClass().getName() + "_" + disposableObserver.hashCode(), disposableObserver);
         }
 
         if (super.mFragment != null) {
-            if(!ApiManager.get().isContainTag(mFragment.getClass().getName())){
-                mFragment.getLifecycle().addObserver(new BaseLifeCycleObserver(mFragment.getLifecycle(),mFragment));
+            if (!ApiManager.get().isContainTag(mFragment.getClass().getName())) {
+                mFragment.getLifecycle().addObserver(new BaseLifeCycleObserver(mFragment.getLifecycle(), mFragment));
             }
-            ApiManager.get().add(mFragment.getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
+            ApiManager.get().add(mFragment.getClass().getName() + "_" + disposableObserver.hashCode(), disposableObserver);
         }
 
         if (isLocalCache) {

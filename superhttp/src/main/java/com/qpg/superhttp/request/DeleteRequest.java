@@ -5,23 +5,34 @@ import com.qpg.superhttp.callback.BaseCallback;
 import com.qpg.superhttp.core.ApiManager;
 import com.qpg.superhttp.lifecycle.BaseLifeCycleObserver;
 import com.qpg.superhttp.mode.CacheResult;
+import com.qpg.superhttp.mode.MediaTypes;
 import com.qpg.superhttp.subscriber.ApiCallbackSubscriber;
 
 import java.lang.reflect.Type;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * @Description: Delete请求
  */
 public class DeleteRequest extends BaseHttpRequest<DeleteRequest> {
+    protected RequestBody requestBody;
+    protected MediaType mediaType;
+    protected String content;
     public DeleteRequest(String suffixUrl) {
         super(suffixUrl);
     }
 
     @Override
     protected <T> Observable<T> execute(Type type) {
+        if (content != null && mediaType != null) {
+            requestBody = RequestBody.create(mediaType, content);
+            return apiService.deleteBody(suffixUrl, requestBody).compose(this.<T>norTransformer(type));
+        }
+
         return apiService.delete(suffixUrl, params).compose(this.<T>norTransformer(type));
     }
 
@@ -45,10 +56,10 @@ public class DeleteRequest extends BaseHttpRequest<DeleteRequest> {
         }
 
         if (super.mFragment != null) {
-            if(!ApiManager.get().isContainTag(super.mFragment .getClass().getName())){
-                super.mFragment .getLifecycle().addObserver(new BaseLifeCycleObserver(super.mFragment .getLifecycle(),mFragment));
+            if(!ApiManager.get().isContainTag(super.mFragment.getClass().getName())){
+                super.mFragment.getLifecycle().addObserver(new BaseLifeCycleObserver(super.mFragment.getLifecycle(),mFragment));
             }
-            ApiManager.get().add(super.mFragment .getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
+            ApiManager.get().add(super.mFragment.getClass().getName()+"_"+disposableObserver.hashCode(), disposableObserver);
         }
 
 
@@ -57,5 +68,11 @@ public class DeleteRequest extends BaseHttpRequest<DeleteRequest> {
         } else {
             this.execute(getType(callback)).subscribe(disposableObserver);
         }
+    }
+
+    public DeleteRequest setJson(String json) {
+        this.content = json;
+        this.mediaType = MediaTypes.APPLICATION_JSON_TYPE;
+        return this;
     }
 }
